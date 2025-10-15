@@ -89,6 +89,7 @@ body::after {
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    width: 150px;
 }
 
 .btn:hover {

@@ -9,6 +9,10 @@ document.querySelectorAll('.word').forEach(word => {
 });
 
 // Button navigation
+document.getElementById('wyr').addEventListener('click', function() {
+    window.location.href = '/wyr/index.html';
+});
+
 document.getElementById('habitplate').addEventListener('click', function() {
     window.location.href = '/habitplate/index.html';
 });
