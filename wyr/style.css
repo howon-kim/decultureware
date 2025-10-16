@@ -69,6 +69,7 @@ body {
     text-align: center;
     color: white;
     padding: 40px 20px;
+    position: relative;
 }
 
 h1 {
@@ -78,13 +79,61 @@ h1 {
 
 p {
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-.coming-soon {
-    font-size: 1.2rem;
-    opacity: 0.8;
-    margin-top: 20px;
+.gallery {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+.screenshot {
+    width: 250px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.screenshot:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.gallery-btn:hover {
+    color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-50%) scale(1.2);
+}
+
+.gallery-btn-left {
+    left: 20px;
+}
+
+.gallery-btn-right {
+    right: 20px;
 }
 
 @media (max-width: 768px) {

@@ -26,7 +26,28 @@
     <div class="container">
         <h1>Where You Run</h1>
         <p>Track your running routes and stats</p>
-        <p class="coming-soon">Coming soon...</p>
+
+        <button class="gallery-btn gallery-btn-left" onclick="scrollGallery(-1)">‹</button>
+        <div class="gallery" id="gallery">
+            <img src="images/WYR-0.jpg" alt="Screenshot 0" class="screenshot">
+            <img src="images/WYR-1.jpg" alt="Screenshot 1" class="screenshot">
+            <img src="images/WYR-2.jpg" alt="Screenshot 2" class="screenshot">
+            <img src="images/WYR-3.jpg" alt="Screenshot 3" class="screenshot">
+            <img src="images/WYR-4.jpg" alt="Screenshot 4" class="screenshot">
+            <img src="images/WYR-5.jpg" alt="Screenshot 5" class="screenshot">
+        </div>
+        <button class="gallery-btn gallery-btn-right" onclick="scrollGallery(1)">›</button>
+    </div>
+    <script>
+        function scrollGallery(direction) {
+            const gallery = document.getElementById('gallery');
+            const scrollAmount = 270; // width of image (250px) + gap (20px)
+            gallery.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
     </div>
 </body>
 </html>
