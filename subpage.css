@@ -1,0 +1,297 @@
+/* ==================== Shared Sub-page Styles ==================== */
+:root {
+    --teal: #00d4aa;
+    --purple: #a855f7;
+    --blue: #3b82f6;
+    --orange: #f97316;
+    --bg-dark: #0a0a0f;
+    --text-muted: rgba(255, 255, 255, 0.6);
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #fff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Navigation */
+.subpage-nav {
+    background: rgba(18, 18, 26, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.subpage-nav .navbar-brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.subpage-nav .nav-link {
+    color: var(--text-muted) !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.subpage-nav .nav-link:hover,
+.subpage-nav .nav-link.active {
+    color: #fff !important;
+}
+
+/* Theme Colors for Brand */
+.brand-teal { color: var(--teal) !important; }
+.brand-purple { color: var(--purple) !important; }
+.brand-blue { color: var(--blue) !important; }
+.brand-orange { color: var(--orange) !important; }
+
+/* Page Header */
+.page-header {
+    padding: 120px 0 60px;
+    text-align: center;
+    position: relative;
+}
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.page-header.teal::after { background: var(--teal); }
+.page-header.purple::after { background: var(--purple); }
+.page-header.blue::after { background: var(--blue); }
+.page-header.orange::after { background: var(--orange); }
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.page-header .app-name {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Content Container */
+.content-container {
+    padding: 60px 0 100px;
+}
+
+.content-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px;
+}
+
+/* Policy/Terms Content */
+.policy-content h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.policy-content h2:first-child {
+    margin-top: 0;
+}
+
+.policy-content p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.policy-content ul {
+    color: var(--text-muted);
+    padding-left: 24px;
+    margin-bottom: 16px;
+}
+
+.policy-content li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
+
+.policy-content a {
+    color: var(--teal);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.policy-content a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.policy-content strong {
+    color: #fff;
+}
+
+.policy-content .effective-date {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+}
+
+/* Contact Form */
+.contact-intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contact-intro p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.contact-form .form-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.contact-form .form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #fff;
+    padding: 14px 16px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.contact-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.contact-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: none;
+    color: #fff;
+}
+
+.contact-form textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.btn-submit {
+    padding: 14px 32px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    transition: all 0.3s;
+}
+
+.btn-submit.teal {
+    background: var(--teal);
+    color: #000;
+}
+.btn-submit.teal:hover {
+    box-shadow: 0 8px 30px rgba(0, 212, 170, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-submit.purple {
+    background: var(--purple);
+    color: #fff;
+}
+.btn-submit.purple:hover {
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-submit.blue {
+    background: var(--blue);
+    color: #fff;
+}
+.btn-submit.blue:hover {
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-submit.orange {
+    background: var(--orange);
+    color: #fff;
+}
+.btn-submit.orange:hover {
+    box-shadow: 0 8px 30px rgba(249, 115, 22, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Contact Info */
+.contact-info {
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    margin-top: 40px;
+}
+
+.contact-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.contact-info a {
+    color: var(--teal);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.subpage-footer {
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.subpage-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.subpage-footer a:hover {
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .page-header {
+        padding: 100px 0 40px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .content-card {
+        padding: 24px;
+    }
+
+    .policy-content h2 {
+        font-size: 1.2rem;
+    }
+}

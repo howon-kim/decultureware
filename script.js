@@ -1,3 +1,4 @@
+// Word hover effect
 document.querySelectorAll('.word').forEach(word => {
     word.addEventListener('mouseenter', function() {
         this.textContent = this.dataset.hover;
@@ -8,35 +9,53 @@ document.querySelectorAll('.word').forEach(word => {
     });
 });
 
-// Button navigation
-document.getElementById('wyr').addEventListener('click', function() {
-    window.location.href = '/wyr/index.html';
-});
-
-document.getElementById('habitplate').addEventListener('click', function() {
-    window.location.href = '/habitplate/index.html';
-});
-
-document.getElementById('baytransit').addEventListener('click', function() {
-    // Add navigation when page is ready
-    console.log('BayTransit clicked');
-});
-
-document.getElementById('workone').addEventListener('click', function() {
-    // Add navigation when page is ready
-    console.log('WorkOne clicked');
-});
-
-// Create multiple star layers for warp effect
-function createStarLayer() {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.left = Math.random() * 100 + 'vw';
-    star.style.top = Math.random() * 100 + 'vh';
-    star.style.animationDelay = Math.random() * 5 + 's';
-    document.body.appendChild(star);
+// Gallery scroll function
+function scrollGallery(galleryId, direction) {
+    const gallery = document.getElementById(galleryId);
+    if (gallery) {
+        const scrollAmount = 200;
+        gallery.scrollBy({
+            left: direction * scrollAmount,
+            behavior: 'smooth'
+        });
+    }
 }
 
-for (let i = 0; i < 1000; i++) {
-    createStarLayer();
-}
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const navHeight = document.querySelector('.floating-nav').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Apply fade-in animation to app sections
+document.querySelectorAll('.app-section .row').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
