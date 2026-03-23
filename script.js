@@ -10,6 +10,23 @@ document.querySelectorAll('.word').forEach(word => {
 });
 
 // Gallery scroll function
+const baytransitImages = {
+    iphone: ['AppStore-1.jpg','AppStore-2.jpg','AppStore-3.jpg','AppStore-4.jpg','AppStore-5.jpg','AppStore-6.jpg'],
+    ipad:   ['AppStore-iPad-1.jpg','AppStore-iPad-2.jpg','AppStore-iPad-3.jpg','AppStore-iPad-4.jpg','AppStore-iPad-5.jpg','AppStore-iPad-6.jpg']
+};
+
+function switchBayTransitView(device) {
+    const gallery = document.getElementById('baytransit-gallery');
+    const imgs = gallery.querySelectorAll('img');
+    imgs.forEach((img, i) => {
+        img.src = 'baytransit/images/' + baytransitImages[device][i];
+    });
+    gallery.scrollLeft = 0;
+    document.getElementById('bt-iphone-btn').classList.toggle('active', device === 'iphone');
+    document.getElementById('bt-ipad-btn').classList.toggle('active', device === 'ipad');
+
+}
+
 function scrollGallery(galleryId, direction) {
     const gallery = document.getElementById(galleryId);
     if (gallery) {
