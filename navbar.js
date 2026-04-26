@@ -5,10 +5,11 @@
   const base   = isRoot ? '' : '../';
 
   const apps = [
-    { id: 'baytransit', label: 'BayTransit' },
-    { id: 'habitplate', label: 'HabitPlate' },
-    { id: 'wyr',        label: 'WYR'        },
-    { id: 'workone',    label: 'WorkOne'    },
+    { id: 'baytransit',  label: 'BayTransit'  },
+    { id: 'habitplate',  label: 'HabitPlate'  },
+    { id: 'wyr',         label: 'WYR'         },
+    { id: 'workone',     label: 'WorkOne'     },
+    { id: 'bananacal',   label: 'BananaCal'   },
   ];
 
   const pages = [

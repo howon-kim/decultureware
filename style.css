@@ -4,6 +4,7 @@
     --purple: #a855f7;
     --blue: #3b82f6;
     --orange: #f97316;
+    --yellow: #f9b529;
     --bg-dark: #0a0a0f;
     --text-muted: rgba(255, 255, 255, 0.6);
 }
@@ -166,6 +167,13 @@ body {
     background: linear-gradient(90deg, transparent, var(--orange), transparent);
 }
 
+.bananacal-theme {
+    background: linear-gradient(180deg, var(--bg-dark) 0%, #1c1500 50%, var(--bg-dark) 100%);
+}
+.bananacal-theme::before {
+    background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+}
+
 /* ==================== App Badge ==================== */
 .app-badge {
     font-size: 0.7rem;
@@ -197,6 +205,12 @@ body {
     background: rgba(249, 115, 22, 0.15);
     border: 1px solid rgba(249, 115, 22, 0.4);
     color: var(--orange);
+}
+
+.app-badge.yellow {
+    background: rgba(249, 181, 41, 0.15);
+    border: 1px solid rgba(249, 181, 41, 0.4);
+    color: var(--yellow);
 }
 
 /* ==================== App Title & Description ==================== */
@@ -264,6 +278,16 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-app.yellow {
+    background: var(--yellow);
+    color: #000;
+}
+.btn-app.yellow:hover {
+    background: var(--yellow);
+    box-shadow: 0 8px 30px rgba(249, 181, 41, 0.4);
+    transform: translateY(-2px);
+}
+
 /* ==================== Gallery ==================== */
 .gallery-track {
     display: flex;
@@ -286,10 +310,80 @@ body {
     border-radius: 16px;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .gallery-img:hover {
     transform: scale(1.03) translateY(-8px);
+}
+
+.gallery-img-wide {
+    width: 340px;
+    border-radius: 10px;
+}
+
+/* Lightbox */
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+#lightbox.active {
+    display: flex;
+}
+
+#lightbox img {
+    max-width: 80vw;
+    max-height: 88vh;
+    border-radius: 12px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    object-fit: contain;
+    cursor: default;
+}
+
+#lightbox-prev,
+#lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 1;
+}
+
+#lightbox-prev { left: 24px; }
+#lightbox-next { right: 24px; }
+
+#lightbox-prev:hover,
+#lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 600px) {
+    #lightbox img { max-width: 95vw; }
+    #lightbox-prev { left: 10px; }
+    #lightbox-next { right: 10px; }
+    #lightbox-prev,
+    #lightbox-next { width: 40px; height: 40px; font-size: 1.5rem; }
 }
 
 .btn-gallery {
@@ -398,6 +492,10 @@ body {
         width: 220px;
     }
 
+    .gallery-img-wide {
+        width: 420px;
+    }
+
     .app-title {
         font-size: 3.5rem;
     }
@@ -434,6 +532,10 @@ body {
     .gallery-img {
         width: 150px;
     }
+
+    .gallery-img-wide {
+        width: 280px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -448,6 +550,10 @@ body {
     .gallery-img {
         width: 130px;
         border-radius: 12px;
+    }
+
+    .gallery-img-wide {
+        width: 240px;
     }
 
     .btn-app {
