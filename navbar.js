@@ -10,6 +10,7 @@
     { id: 'wyr',         label: 'WYR'         },
     { id: 'workone',     label: 'WorkOne'     },
     { id: 'bananacal',   label: 'BananaCal'   },
+    { id: 'bananasnap',  label: 'BananaSnap'  },
   ];
 
   const pages = [

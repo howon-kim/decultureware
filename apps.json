@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "bananacal",
+    "name": "BananaCal",
+    "platform": "mac",
+    "category": "Calendar",
+    "tagline": "A little more room for your day.",
+    "description": "Your calendar, reminders, weather, and world clocks. Together, right in your Mac’s menu bar.",
+    "features": [
+      "Your month at a glance",
+      "Events and reminders, together",
+      "Weather and world clocks"
+    ],
+    "color": "#f1df88",
+    "id": 6759227522,
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/49/ef/f0/49eff032-c6f2-55ef-1040-eaa8808492ae/AppIcon-0-0-85-220-0-6-0-2x.png/512x512bb.png",
+    "url": "https://apps.apple.com/us/app/id6759227522"
+  },
+  {
+    "slug": "bananasnap",
+    "name": "BananaSnap",
+    "platform": "mac",
+    "category": "Screen capture",
+    "tagline": "Keep the moments that matter.",
+    "description": "Capture your screen, organize the details, and find that moment again. A home for everything you save.",
+    "features": [
+      "Capture a window or workspace",
+      "Find captures by date or app",
+      "Copy text straight from images"
+    ],
+    "color": "#eadba9",
+    "id": 6812689057,
+    "icon": "",
+    "url": "https://apps.apple.com/us/app/id6812689057"
+  },
+  {
+    "slug": "baytransit",
+    "name": "Bay Transit",
+    "platform": "mobile",
+    "category": "Transit",
+    "tagline": "A smoother ride through the Bay.",
+    "description": "Plan your BART trip, check live departures, and stay ahead of service alerts.",
+    "features": [
+      "Plan routes and compare fares",
+      "See real-time departures",
+      "Keep up with service alerts"
+    ],
+    "color": "#cddfeb",
+    "id": 1644622451,
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/5e/7e/845e7ea6-283d-b696-0622-41775fe7af98/BayTransit-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb.jpg",
+    "url": "https://apps.apple.com/us/app/id1644622451"
+  },
+  {
+    "slug": "habitplate",
+    "name": "HabitPlate",
+    "platform": "mobile",
+    "category": "Food & habits",
+    "tagline": "Good habits start on your plate.",
+    "description": "Follow a structured eating plan, photograph your meals, and keep your daily nutrition in view.",
+    "features": [
+      "Follow guided diet courses",
+      "Analyze meals with a photo",
+      "Track macros and meal history"
+    ],
+    "color": "#dfd9eb",
+    "id": 6753604162,
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/97/fa/7f/97fa7f0e-2cab-b881-74f4-ad433fc13c3c/AppIcon-0-0-1x_U007ephone-0-1-sRGB-85-220.png/512x512bb.jpg",
+    "url": "https://apps.apple.com/us/app/id6753604162"
+  },
+  {
+    "slug": "wyr",
+    "name": "Where You Run",
+    "platform": "mobile",
+    "category": "Fitness",
+    "tagline": "Every route tells a story.",
+    "description": "Turn your workout history into a map of everywhere you’ve been. Rediscover your runs, city by city.",
+    "features": [
+      "Explore routes on satellite maps",
+      "Browse by city and time",
+      "Import workouts from Apple Health"
+    ],
+    "color": "#d6e3d3",
+    "id": 6754036352,
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c4/97/75/c4977536-dd24-b128-0e62-20fb99a137ff/AppIcon-0-0-1x_U007ephone-0-1-sRGB-85-220.png/512x512bb.jpg",
+    "url": "https://apps.apple.com/us/app/id6754036352"
+  },
+  {
+    "slug": "workone",
+    "name": "WorkOne",
+    "platform": "mobile",
+    "category": "Work & time",
+    "tagline": "Make every working hour count.",
+    "description": "Keep track of your hours, overtime, and wages, even when you work across multiple companies.",
+    "features": [
+      "Keep your work records together",
+      "Calculate overtime and wages",
+      "Manage multiple companies"
+    ],
+    "color": "#efdbcb",
+    "id": 6502869186,
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/39/93/92/399392dc-09f4-5c0e-4497-f833282ef1a5/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "url": "https://apps.apple.com/us/app/id6502869186"
+  }
+]
