@@ -13,7 +13,7 @@ def translate(text):
  if text in T:return T[text]
  stripped=text.strip()
  if stripped in T:return text.replace(stripped,T[stripped],1)
- if text.endswith(' · De Culture Ware'):return translate(text.removesuffix(' · De Culture Ware'))+' · De Culture Ware'
+ if text.endswith(' · Design Culture Software'):return translate(text.removesuffix(' · Design Culture Software'))+' · Design Culture Software'
  if ' / ' in text:
   a,b=text.split(' / ',1)
   if a in T:return T[a]+' / '+b
