@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Build Korean showroom pages and reciprocal language links from generated English HTML."""
-import json, os, re
+import os, re
 from pathlib import Path
 from html import escape
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, urlunsplit
-R=Path(__file__).resolve().parents[1]
-T=json.loads((R/'locales/ko.json').read_text())
-PAGES=[Path('index.html'),*(p.relative_to(R) for p in sorted((R/'apps').glob('*.html')))]
+from site_common import ROOT as R, read_json, load_apps, relative
+T=read_json(R/'locales/ko.json')
+PAGES=[Path('index.html'),*(Path('apps') / (app['slug']+'.html') for app in load_apps())]
 
 def translate(text):
  if text in T:return T[text]
@@ -28,8 +28,6 @@ def translate(text):
  if text.endswith(' support'):return text[:-8]+' 지원'
  return text
 
-def relative(target,source):return Path(os.path.relpath(target,source.parent)).as_posix()
-
 def language_links(page,lang):
  source=page if lang=='en' else Path('ko')/page
  en=relative(page,source);ko=relative(Path('ko')/page,source)
@@ -48,7 +46,7 @@ class KoreanHTML(HTMLParser):
     u=urlsplit(value)
     if not u.scheme and not u.netloc and u.path:
      target=Path(os.path.normpath(self.page.parent/u.path))
-     if target in PAGES:target=Path('ko')/target
+     if target in PAGES or target==Path('bananacal/contact.html'):target=Path('ko')/target
      value=urlunsplit(('', '', relative(target,Path('ko')/self.page),u.query,u.fragment))
    elif key in ('alt','aria-label','content'):value=translate(value)
    values.append(f'{key}="{escape(value,quote=True)}"')
@@ -62,6 +60,9 @@ class KoreanHTML(HTMLParser):
 def build():
  for page in PAGES:
   original=(R/page).read_text()
+  # Re-running localization must not duplicate language controls or metadata.
+  original=re.sub(r'<span class="language-switch"[^>]*>.*?</span>(?=</nav>)', '', original)
+  original=re.sub(r'<link rel="alternate" hreflang="(?:en|ko|x-default)" href="[^"]*">', '', original)
   parser=KoreanHTML(page);parser.feed(original)
   korean=''.join(parser.output)
   for lang,document,dest in [('en',original,page),('ko',korean,Path('ko')/page)]:

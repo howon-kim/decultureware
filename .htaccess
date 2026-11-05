@@ -1,0 +1,12 @@
+# Whole-folder deployment: Apache 2.4, AllowOverride FileInfo Options.
+# Keep actual credentials and runtime state OUTSIDE this website folder.
+Options -Indexes -MultiViews
+RewriteEngine On
+
+# Local tools, tests and archived packages must never be served or executed.
+RewriteRule ^(?:deploy|scripts|tests|config|docs|node_modules)(?:/|$) - [F,NC]
+# Hide dotfiles/directories; keep ACME and other standard .well-known URLs usable.
+RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F]
+RewriteRule ^(?:README\.md|INSTALL-SYNOLOGY\.md|AGENTS\.md|feedback\.local\.php|feedback-state\.json)$ - [F,NC]
+# Only the public feedback endpoint needs direct HTTP access.
+RewriteRule ^api/(?:lib(?:/|$)|feedback(?:/|$)|feedback-core\.php(?:/|$)) - [F,NC]

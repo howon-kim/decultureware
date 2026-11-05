@@ -34,6 +34,23 @@
     "url": "https://apps.apple.com/us/app/id6812689057"
   },
   {
+    "slug": "aftermove",
+    "name": "AFTERMOVE",
+    "platform": "mobile",
+    "category": "Fitness",
+    "tagline": "Give every workout a story.",
+    "description": "Bring your Apple Health workouts to life with route maps, workout timelines, and shareable photos and videos.",
+    "features": [
+      "See your workouts on a map",
+      "Explore your workout timeline",
+      "Create photos and videos to share"
+    ],
+    "color": "#e5d9d0",
+    "id": 6815123027,
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/47/60/97/47609761-e5fa-bf70-1c4d-fa2302e22112/habitTracker-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+    "url": "https://apps.apple.com/us/app/aftermove/id6815123027"
+  },
+  {
     "slug": "baytransit",
     "name": "Bay Transit",
     "platform": "mobile",

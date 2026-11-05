@@ -25,8 +25,11 @@
                     <div class="policy-content">
                         <p>This privacy policy applies to the BananaCal app (hereby referred to as "Application") for macOS that was created by Howon Kim (hereby referred to as "Service Provider") as a paid service. This service is intended for use "AS IS".</p>
 
-                        <h2>No Data Collection</h2>
-                        <p>BananaCal does not collect, transmit, or store any personal data on external servers. The Application operates entirely on your device. The Service Provider has no access to your calendar data, usage patterns, or any other information generated while using the Application.</p>
+                        <h2>App Analytics</h2>
+                        <p>BananaCal for macOS 2.1.0 and later shares limited usage statistics with TelemetryDeck for product analytics. This feature is on by default. You can turn it off at any time in Settings → Feedback → Share Usage Statistics. Earlier macOS versions do not include this analytics feature.</p>
+                        <p>When sharing is on, BananaCal sends app version, build number, platform, UTC date, and events for opening Settings, changing selected settings, and a daily settings snapshot, which may be retried if delivery is uncertain. The snapshot includes the selected appearance, theme style, menu bar width, first screen, event notification and daily summary options, and the operating system's notification permission status. Settings changes include the setting name and its previous and new values. Only predefined option values are sent.</p>
+                        <p>The app creates a random installation identifier on your device and sends a different SHA-256 hash of it each UTC day, along with a daily session hash. The original identifier stays on your device. These analytics are not linked to your identity and are not used for tracking or advertising. TelemetryDeck receives the transmitted events and may see your IP address as part of the network request, so this data is not described as completely anonymous. See <a href="https://telemetrydeck.com/privacy/" target="_blank" rel="noopener noreferrer">TelemetryDeck's privacy policy</a> for its data handling practices.</p>
+                        <p>Turning sharing off stops new analytics requests and removes the local analytics identifier and unsent events. It does not erase statistics already received by TelemetryDeck. BananaCal does not send your name, email, Apple account, calendar or reminder contents, event titles, location, or notification text as analytics.</p>
 
                         <h2>Calendar Access</h2>
                         <p>The Application requests access to your Apple Calendar data (via the macOS EventKit framework) solely to display and manage your events within the Application. This data:</p>
@@ -42,21 +45,24 @@
                         <p>The Application uses Apple's MapKit framework to display event locations on a map. Location search queries are processed by Apple's servers in accordance with <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple's Privacy Policy</a>. The Service Provider does not receive or store any location data.</p>
 
                         <h2>Local Storage</h2>
-                        <p>The Application stores your preferences (such as selected calendars, appearance settings, and world clock time zones) locally on your device using macOS UserDefaults. This data is stored only on your device and is never transmitted externally.</p>
+                        <p>The Application stores preferences (such as selected calendars, appearance settings, and world clock time zones) locally on your device using macOS UserDefaults. In macOS 2.1.0 and later, the limited settings choices listed under App Analytics are also transmitted when Share Usage Statistics is on. Calendar and reminder contents are not included.</p>
 
                         <h2>Third-Party Services</h2>
-                        <p>The Application uses Apple frameworks (EventKit, MapKit, SwiftUI) that are subject to Apple's own privacy policies. No other third-party SDKs, analytics tools, or advertising networks are integrated into the Application.</p>
+                        <p>The Application uses Apple frameworks (EventKit, MapKit, SwiftUI) that are subject to Apple's own privacy policies. In macOS 2.1.0 and later, usage statistics are sent to TelemetryDeck as described above. No advertising network is integrated into the Application.</p>
 
                         <h2>Children's Privacy</h2>
-                        <p>The Application does not knowingly collect any information from children under the age of 13. Since no data is collected at all, the Application is safe for users of all ages.</p>
+                        <p>The Application is not directed to children under the age of 13. The Service Provider does not knowingly collect children's personal information. If you believe a child has provided personal information, please contact the Service Provider at the address below.</p>
 
                         <h2>Changes to This Policy</h2>
                         <p>This Privacy Policy may be updated from time to time. The Service Provider will notify you of any changes by updating this page. You are advised to review this Privacy Policy periodically for any changes. Continued use of the Application after changes are posted constitutes your acceptance of those changes.</p>
 
                         <h2>Contact Us</h2>
-                        <p>If you have any questions regarding privacy while using the Application, please contact the Service Provider via email at <a href="mailto:tour_bogs_5u@icloud.com">tour_bogs_5u@icloud.com</a>.</p>
+                        <p>If you have any questions regarding privacy while using the Application, please contact the Service Provider via email at <a href="mailto:feedback@howon.kim">feedback@howon.kim</a>.</p>
 
-                        <p class="effective-date"><strong>Effective Date:</strong> April 26, 2026</p>
+                        <h2 id="website-feedback">Website feedback</h2>
+                        <p>The website's feedback link opens your email app. A message is sent to feedback@howon.kim only when you send it from your email app. We receive your email address and the information you choose to include for support. Your calendar contents are not attached automatically. Please do not include passwords or sensitive calendar details. Feedback is retained in our support mailbox for handling your request; contact us at the address above to request deletion.</p>
+                        <p>The website does not submit feedback through a server-side form. The hosting provider may retain its normal access logs.</p>
+                        <p class="effective-date"><strong>Effective Date:</strong> October 13, 2026</p>
                     </div>
                 </div>
             </div>

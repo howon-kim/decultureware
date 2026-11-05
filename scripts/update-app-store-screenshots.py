@@ -4,22 +4,19 @@ Run: python3 scripts/update-app-store-screenshots.py
 No image files are downloaded. Unavailable apps retain their current galleries.
 """
 import argparse
-import html
 import json
-import re
 from pathlib import Path
 from urllib.parse import urlencode, urlparse
 from urllib.request import urlopen
 
-ROOT = Path(__file__).resolve().parents[1]
-APPS = {
-    "baytransit": (1644622451, "Bay Transit", "software"),
-    "habitplate": (6753604162, "HabitPlate", "software"),
-    "wyr": (6754036352, "Where You Run", "software"),
-    "workone": (6502869186, "WorkOne", "software"),
-    "bananacal": (6759227522, "BananaCal", "macSoftware"),
-    "bananasnap": (6812689057, "BananaSnap", "macSoftware"),
-}
+from site_common import ROOT, load_apps, load_screenshots, save_screenshots
+
+
+def catalog():
+    """App Store IDs and platform already belong to apps.json."""
+    return {app["slug"]: (app["id"], app["name"],
+            "macSoftware" if app["platform"] == "mac" else "software")
+            for app in load_apps() if app.get("id")}
 
 def valid_urls(values):
     return [url for url in values if isinstance(url, str)
@@ -32,13 +29,14 @@ def main():
     parser.add_argument("--response", type=Path, action="append",
                         help="Use saved Apple lookup responses instead of network requests")
     args = parser.parse_args()
+    app_catalog = catalog()
     apps = {}
     if args.response:
         payloads = [json.loads(path.read_text()) for path in args.response]
     else:
         payloads = []
         for entity in ("software", "macSoftware"):
-            ids = ",".join(str(value[0]) for value in APPS.values() if value[2] == entity)
+            ids = ",".join(str(value[0]) for value in app_catalog.values() if value[2] == entity)
             url = "https://itunes.apple.com/lookup?" + urlencode(
                 {"id": ids, "entity": entity, "country": args.country})
             with urlopen(url, timeout=30) as response:
@@ -48,10 +46,8 @@ def main():
             if "trackId" in app:
                 apps[app["trackId"]] = app
 
-    data_path = ROOT / "app-store-screenshots.js"
-    prefix = "window.appStoreScreenshots = "
-    data = json.loads(data_path.read_text().removeprefix(prefix).strip().rstrip(";")) if data_path.exists() else {}
-    for slug, (app_id, name, entity) in APPS.items():
+    data = load_screenshots()
+    for slug, (app_id, name, entity) in app_catalog.items():
         app = apps.get(app_id, {})
         urls = valid_urls(app.get("screenshotUrls", []))
         if not urls:
@@ -62,7 +58,7 @@ def main():
         if ipad:
             data[slug]["ipad"] = ipad
         print(f"{name}: {len(urls)} Apple-hosted screenshots")
-    data_path.write_text(prefix + json.dumps(data, indent=2) + ";\n")
+    save_screenshots(data)
 
     import runpy
     runpy.run_path(str(ROOT / "scripts/build-showroom.py"), run_name="__main__")

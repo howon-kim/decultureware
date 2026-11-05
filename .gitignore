@@ -102,3 +102,18 @@ iOSInjectionProject/
 # IDE files
 .vscode/
 .idea/
+
+# Local feedback secrets/runtime state (never deploy inside the web root)
+feedback.local.php
+feedback-state.json
+.env
+.env.*
+
+# Python build caches and obsolete deployment bundles
+__pycache__/
+*.pyc
+/deploy/
+/config/feedback.php
+
+# Cloudflare Pages public build output
+/dist/

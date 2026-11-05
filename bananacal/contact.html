@@ -1,76 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - BananaCal</title>
-    <link rel="stylesheet" href="../subpage.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <a class="skip" href="#main">Skip to content</a><header class="header wrap"><a class="brand" href="../index.html" aria-label="Design Culture Software home"><span class="brand-mark">dcw.</span><span class="brand-name">Design Culture<br>Software</span></a><nav aria-label="Main navigation"><a href="../index.html#apps">The apps</a><a href="../index.html#studio">The studio</a><a class="contact-link" href="mailto:feedback@howon.kim">Say hello <span aria-hidden="true">↗</span></a><a href="../ko/apps/bananacal.html" lang="ko">한국어 앱 소개</a></nav></header>
-
-    <div class="wrap support-context"><a class="back" href="../apps/bananacal.html">← BananaCal</a><nav aria-label="BananaCal support"><a href="contact.html" aria-current="page">Contact & support</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms & conditions</a></nav></div>
-    <header class="page-header yellow">
-        <div class="container">
-            <span class="sp-badge yellow">BananaCal</span>
-            <h1>Contact Us</h1>
-        </div>
-    </header>
-
-    <main id="main" class="content-container yellow-accent">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 contact-wrap">
-                    <div class="contact-intro">
-                        <p>We'd love to hear from you! If you have any questions, suggestions, or feedback about BananaCal, please don't hesitate to reach out.</p>
-                    </div>
-
-                    <form class="contact-form" id="contactForm">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Your name" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="What is this about?" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" name="message" placeholder="Your message here..." required></textarea>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-submit yellow">Send Message</button>
-                        </div>
-                    </form>
-
-                    <div class="contact-divider">or</div>
-                    <a href="mailto:tour_bogs_5u@icloud.com" class="contact-email-link">tour_bogs_5u@icloud.com</a>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer class="wrap footer"><a class="brand-mark" href="../index.html">dcw.</a><p>Small tools. Everyday possibilities.</p><span>© 2026 Design Culture Software</span><a href="mailto:feedback@howon.kim">Get in touch ↗</a></footer>
-
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            const mailtoLink = `mailto:tour_bogs_5u@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
-            window.location.href = mailtoLink;
-        });
-    </script>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Found a bug? Have an idea? Tell us how BananaCal can work better for you."><title>Feedback · BananaCal</title>
+<link rel="stylesheet" href="../subpage.css">
+<link rel="alternate" hreflang="en" href="contact.html"><link rel="alternate" hreflang="ko" href="../ko/bananacal/contact.html">
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header wrap"><a class="brand" href="../index.html" aria-label="Design Culture Software"><span class="brand-mark">dcw.</span><span class="brand-name">Design Culture<br>Software</span></a><nav aria-label="Main navigation"><a href="../index.html#apps">The apps</a><a href="../index.html#studio">The studio</a><span class="language-switch"><a href="contact.html" lang="en" aria-current="page">EN</a><span aria-hidden="true"> / </span><a href="../ko/bananacal/contact.html" lang="ko" >한국어</a></span></nav></header>
+<div class="wrap support-context"><a class="back" href="../apps/bananacal.html">← BananaCal</a><nav aria-label="BananaCal"><a href="contact.html" aria-current="page">Feedback</a><a href="../bananacal/privacy.html">Privacy policy</a><a href="../bananacal/terms.html">Terms & conditions</a></nav></div>
+<header class="page-header yellow"><div class="container"><span class="sp-badge yellow">BananaCal</span><h1>Share your feedback</h1></div></header>
+<main id="main" class="content-container"><div class="container"><div class="contact-wrap"><p>Found a bug? Have an idea? Tell us how BananaCal can work better for you.</p>
+<p>Select the email address below to open your email app. Write your message and send it from there.</p><p>For a bug report, please include your device, operating system, BananaCal version, and the steps that led to the issue.</p>
+<div class="contact-divider">Email support</div>
+<a class="contact-email-link" href="mailto:feedback@howon.kim?subject=BananaCal%20feedback">feedback@howon.kim</a>
+<p>Please leave out passwords and private calendar details. <a href="../bananacal/privacy.html#website-feedback">Privacy policy ↗</a></p>
+</div></div></main><footer class="wrap footer"><a class="brand-mark" href="../index.html">dcw.</a><p>Small tools. Everyday possibilities.</p><span>© 2026 Design Culture Software</span></footer></body></html>
