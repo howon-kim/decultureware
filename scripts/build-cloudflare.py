@@ -8,7 +8,9 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'dist'
-PUBLIC_FILES = ('index.html', '404.html', 'showroom.css', 'showroom.js', 'subpage.css')
+PUBLIC_FILES = ('index.html', '404.html', 'showroom.css', 'showroom.js', 'subpage.css',
+                '_headers', 'assets/fonts/SUIT-Variable-v2.0.5.woff2',
+                'assets/fonts/SUIT-LICENSE.txt')
 PUBLIC_EXTENSIONS = {'.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.avif',
                      '.gif', '.svg', '.ico', '.woff', '.woff2', '.ttf'}
 
@@ -21,6 +23,7 @@ def build():
         shutil.rmtree(OUTPUT)
     OUTPUT.mkdir()
     for name in PUBLIC_FILES:
+        (OUTPUT / name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / name, OUTPUT / name)
     apps = json.loads((ROOT / 'apps.json').read_text())
     for directory in ['apps', 'ko', *(app['slug'] for app in apps)]:

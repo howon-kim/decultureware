@@ -19,7 +19,8 @@ def build():
 <html lang="{lang}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="{e(t['intro'])}"><title>{t['support']} · BananaCal</title>
-<link rel="stylesheet" href="{base}subpage.css">
+<link rel="preload" href="{base}assets/fonts/SUIT-Variable-v2.0.5.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{base}showroom.css"><link rel="stylesheet" href="{base}subpage.css">
 <link rel="alternate" hreflang="en" href="{english}"><link rel="alternate" hreflang="ko" href="{korean}">
 </head><body>
 <a class="skip" href="#main">{'본문으로 이동' if ko else 'Skip to content'}</a>

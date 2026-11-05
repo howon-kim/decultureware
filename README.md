@@ -51,6 +51,20 @@ development scripts, documentation, and Git files are excluded. Do not publish
 the repository root: Cloudflare does not apply Apache `.htaccess` rules.
 The root `404.html` keeps missing URLs from falling back to the homepage.
 
+`_headers` supplies the Content Security Policy, frame blocking, HTTPS persistence,
+and browser permission restrictions. Scripts and fonts load from this site; images
+may also load from Apple's image CDN. Inline CSS remains allowed for app colors.
+The HTTPS policy applies only to the current hostname, not mail or other subdomains.
+Deployment URLs are marked `noindex` so the custom domain is the searchable copy.
+
+SUIT Variable 2.0.5 is self-hosted under `assets/fonts/` with its SIL Open Font
+License, from the [official distribution](https://github.com/sun-typeface/SUIT/tree/2.0.5).
+Keep the license with the font. The versioned font is preloaded, uses `font-display:
+swap`, and has a one-year browser cache; change the filename and references when
+updating it. Both common stylesheets are linked directly, without chained imports.
+App icons request 160px Apple thumbnails; Mac screenshots reserve their 8:5 space
+before loading. Cloudflare's revalidation policy stays in place for HTML/CSS/JS.
+
 Push updates to `main` to trigger a new deployment. The build uses saved App Store
 image URLs; run the screenshot refresh locally and commit its output when needed.
 
