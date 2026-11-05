@@ -64,8 +64,11 @@ swap`, and has a one-year browser cache; change the filename and references when
 updating it. Both common stylesheets are linked directly, without chained imports.
 App icons request 160px Apple thumbnails; Mac screenshots reserve their 8:5 space
 before loading. CSS/JS links include a content hash so returning visitors receive
-the matching styles and behavior after each update. These files explicitly use
-browser revalidation; HTML keeps Cloudflare's default revalidation policy.
+the matching styles and behavior after each update. These files request browser
+revalidation, but Cloudflare's zone cache settings can impose a longer lifetime
+(four hours in the production response checked on 2026-11-06). The content hash
+is therefore required for update delivery. HTML keeps the default revalidation
+policy. Changing site assets does not require changing zone-wide cache settings.
 
 Push updates to `main` to trigger a new deployment. The build uses saved App Store
 image URLs; run the screenshot refresh locally and commit its output when needed.
