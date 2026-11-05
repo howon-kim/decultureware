@@ -76,9 +76,16 @@ with TemporaryDirectory(prefix='dcw-build-') as temp:
     for private in ('api', 'config', 'scripts', 'tests', 'docs', '.git', '.htaccess', 'README.md'):
         assert not (output / private).exists(), f'Private file deployed: {private}'
     assert not list(output.rglob('*.php')), 'PHP source must never be deployed as a static asset'
-    for contact in ('bananacal/contact.html', 'ko/bananacal/contact.html'):
-        content = (output / contact).read_text()
-        assert 'mailto:feedback@howon.kim' in content
-        assert '<form' not in content and 'api/feedback' not in content
+    for contact in output.rglob('contact.html'):
+        content = contact.read_text()
+        assert 'mailto:feedback@decultureware.com' in content
+        assert '<form' not in content and 'contactForm' not in content and 'api/feedback' not in content
+    for page in output.rglob('*.html'):
+        parser = Links()
+        parser.feed(page.read_text())
+        for link in parser.links:
+            url = urlsplit(link)
+            if url.scheme == 'mailto':
+                assert url.path == 'feedback@decultureware.com', f'Old support address in {page}'
     assert (output / '404.html').exists(), 'Missing URLs must return a real 404'
     print(f'PASS: {deployed_count} deployable HTML pages, email contacts and private-file exclusions.')

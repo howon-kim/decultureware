@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 // No request field can change the recipient or SMTP configuration.
-const FEEDBACK_RECIPIENT = 'feedback@howon.kim';
+const FEEDBACK_RECIPIENT = 'feedback@decultureware.com';
 
 final class FeedbackError extends RuntimeException {
     public int $status;

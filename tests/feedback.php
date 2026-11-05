@@ -12,7 +12,7 @@ $dir = __DIR__ . '/.feedback-test-' . bin2hex(random_bytes(8));
 mkdir($dir, 0700);
 $config = ['allowed_origins'=>['https://site.example'], 'state_dir'=>$dir, 'rate_secret'=>str_repeat('x', 40),
     'smtp_host'=>'smtp.example', 'smtp_port'=>587, 'smtp_security'=>'tls', 'smtp_username'=>'fixture',
-    'smtp_password'=>'fixture-not-a-real-password', 'from_email'=>'feedback@howon.kim'];
+    'smtp_password'=>'fixture-not-a-real-password', 'from_email'=>'feedback@decultureware.com'];
 $data = ['app'=>'bananacal', 'kind'=>'bug', 'platform'=>'ios', 'email'=>'tester@example.com',
     'version'=>'2.0', 'message'=>"한글 테스트\n<script>plain text</script>", 'submission_id'=>str_repeat('a',32), 'website'=>''];
 $count = 0;
@@ -43,9 +43,9 @@ try {
     feedbackSubmit($next,$config,'https://site.example','127.0.0.2',$sender);
     check($count===6,'Failed send is retryable and never acknowledged as sent');
     $mail=feedbackCreateMail(array_replace($data,['to'=>'attacker@example.com']),$config);
-    check($mail->getToAddresses()[0][0]==='feedback@howon.kim','Fixed recipient');
+    check($mail->getToAddresses()[0][0]==='feedback@decultureware.com','Fixed recipient');
     check(array_values($mail->getReplyToAddresses())[0][0]==='tester@example.com','Visitor is Reply-To');
-    check($mail->From==='feedback@howon.kim' && $mail->SMTPAuth && $mail->SMTPSecure==='tls','Authenticated TLS sender');
+    check($mail->From==='feedback@decultureware.com' && $mail->SMTPAuth && $mail->SMTPSecure==='tls','Authenticated TLS sender');
     check($mail->ContentType==='text/plain','User HTML stays plain text');
     check($mail->preSend(),'Valid MIME message');
     $raw=file_get_contents($dir.'/feedback-state.json');

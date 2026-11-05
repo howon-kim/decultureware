@@ -60,5 +60,12 @@ window.appStoreScreenshots = {
     "iphone": [
       "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/08/ba/32/08ba323c-e28f-4564-fa6f-cd2afff7e3c4/aftermove-appstore-en.png/320x480bb.jpg"
     ]
+  },
+  "bananasnap": {
+    "iphone": [
+      "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/76/65/47/76654778-4ad0-797f-3491-fb132b13cc3b/02-snapshot-2880x1800.png/800x500bb.jpg",
+      "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/15/1e/8e/151e8e6a-12d8-ca89-162c-405f5f3b2e1e/03-preview-2880x1800.png/800x500bb.jpg",
+      "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/37/0d/be/370dbeb4-e2ad-4f92-dcf6-c43d71938542/04-library-2880x1800.png/800x500bb.jpg"
+    ]
   }
 };

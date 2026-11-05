@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    <a class="skip" href="#main">Skip to content</a><header class="header wrap"><a class="brand" href="../index.html" aria-label="Design Culture Software home"><span class="brand-mark">dcw.</span><span class="brand-name">Design Culture<br>Software</span></a><nav aria-label="Main navigation"><a href="../index.html#apps">The apps</a><a href="../index.html#studio">The studio</a><a class="contact-link" href="mailto:feedback@howon.kim">Say hello <span aria-hidden="true">↗</span></a><a href="../ko/apps/wyr.html" lang="ko">한국어 앱 소개</a></nav></header>
+    <a class="skip" href="#main">Skip to content</a><header class="header wrap"><a class="brand" href="../index.html" aria-label="Design Culture Software home"><span class="brand-mark">dcw.</span><span class="brand-name">Design Culture<br>Software</span></a><nav aria-label="Main navigation"><a href="../index.html#apps">The apps</a><a href="../index.html#studio">The studio</a><a class="contact-link" href="mailto:feedback@decultureware.com">Say hello <span aria-hidden="true">↗</span></a><a href="../ko/apps/wyr.html" lang="ko">한국어 앱 소개</a></nav></header>
 
     <div class="wrap support-context"><a class="back" href="../apps/wyr.html">← Where You Run</a><nav aria-label="Where You Run support"><a href="contact.html" aria-current="page">Contact & support</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms & conditions</a></nav></div>
     <header class="page-header teal">
@@ -26,51 +26,14 @@
                         <p>Have questions or feedback? We'd love to hear from you!</p>
                     </div>
 
-                        <form class="contact-form" id="contactForm">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Your name" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" name="subject" placeholder="What is this about?" required>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" name="message" placeholder="Your message here..." required></textarea>
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-submit teal">Send Message</button>
-                            </div>
-                        </form>
-
-                    <div class="contact-divider">or</div>
-                    <a href="mailto:68.circles.nicer@icloud.com" class="contact-email-link">68.circles.nicer@icloud.com</a>
+                    <p>Select the email address below to open your email app. Write your message and send it from there.</p>
+                    <div class="contact-divider">Email support</div>
+                    <a href="mailto:feedback@decultureware.com?subject=Where%20You%20Run%20support" class="contact-email-link">feedback@decultureware.com</a>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="wrap footer"><a class="brand-mark" href="../index.html">dcw.</a><p>Small tools. Everyday possibilities.</p><span>© 2026 Design Culture Software</span><a href="mailto:feedback@howon.kim">Get in touch ↗</a></footer>
-
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            const mailtoLink = `mailto:68.circles.nicer@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
-            window.location.href = mailtoLink;
-        });
-    </script>
+    <footer class="wrap footer"><a class="brand-mark" href="../index.html">dcw.</a><p>Small tools. Everyday possibilities.</p><span>© 2026 Design Culture Software</span><a href="mailto:feedback@decultureware.com">Get in touch ↗</a></footer>
 </body>
 </html>

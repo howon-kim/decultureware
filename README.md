@@ -25,7 +25,7 @@ Open http://127.0.0.1:18766.
 python3 scripts/update-app-store-screenshots.py
 ```
 
-This fetches public US App Store image URLs and rebuilds the showroom. It does not download images. Unavailable apps keep their saved URLs; BananaSnap uses its existing local screenshots until available. Use `--country kr` to select another storefront. This command must run before deploying if screenshots need refreshing; it is not a scheduled or visitor-triggered update.
+This fetches public US App Store image URLs and rebuilds the showroom. It does not download images. Unavailable apps keep their saved URLs; local BananaSnap images remain as fallback assets. Use `--country kr` to select another storefront. This command must run before deploying if screenshots need refreshing; it is not a scheduled or visitor-triggered update.
 
 Deploy the generated HTML alongside the CSS, JavaScript, app support directories, and local fallback images. Building and previewing do not publish the site.
 
@@ -61,11 +61,13 @@ python3 scripts/build-cloudflare.py
 python3 -m http.server 18766 --bind 127.0.0.1 --directory dist
 ```
 
-## BananaCal feedback
+## Email support
 
-The English/Korean contact pages open the visitor's email app with
-`feedback@howon.kim` as the recipient. Visitors review and send the message in
-their email app. `scripts/build-feedback.py` generates both contact pages.
+All app contact pages link directly to `feedback@decultureware.com`, with the app
+name in the email subject. Visitors write and send the message in their email
+app; the website has no contact forms. Navigation, privacy policies, and terms
+use the same support address. `scripts/build-feedback.py` generates BananaCal's
+English/Korean contact pages; other app contact pages are maintained as HTML.
 
 The earlier PHP feedback implementation and [Synology setup](INSTALL-SYNOLOGY.md)
 remain in the repository for reference but are not deployed to Cloudflare.

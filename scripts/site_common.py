@@ -31,7 +31,7 @@ def screenshot_urls(app, data, device="iphone"):
     urls = data.get(app["slug"], {}).get(device, [])
     if not urls and device == "iphone" and app.get("preview"):
         urls = [app["preview"]]
-    if not urls and app["slug"] == "bananasnap":
+    if not urls and device == "iphone" and app["slug"] == "bananasnap":
         urls = ["bananasnap/images/" + name + "-2880x1800.png"
                 for name in ["02-snapshot", "03-preview", "04-library"]]
     return urls

@@ -29,7 +29,7 @@ def build():
 <main id="main" class="content-container"><div class="container"><div class="contact-wrap"><p>{t['intro']}</p>
 <p>{email_intro}</p><p>{email_hint}</p>
 <div class="contact-divider">{'이메일 문의' if ko else 'Email support'}</div>
-<a class="contact-email-link" href="mailto:feedback@howon.kim?subject=BananaCal%20feedback">feedback@howon.kim</a>
+<a class="contact-email-link" href="mailto:feedback@decultureware.com?subject=BananaCal%20feedback">feedback@decultureware.com</a>
 <p>{t['note']} <a href="{privacy}#website-feedback">{t['privacy']} ↗</a></p>
 </div></div></main><footer class="wrap footer"><a class="brand-mark" href="{home}">dcw.</a><p>{t['footer']}</p><span>© 2026 Design Culture Software</span></footer></body></html>'''
   dest=R/('ko/bananacal/contact.html' if ko else 'bananacal/contact.html');dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html)

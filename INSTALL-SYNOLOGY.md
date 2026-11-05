@@ -37,13 +37,13 @@ PHP 실행 계정이 상위 폴더에도 접근할 수 있어야 합니다.
 | smtp_port / smtp_security | `587` / `'tls'` 유지 |
 | smtp_username | MailPlus 발송 계정의 로그인 아이디 |
 | smtp_password | 해당 계정 비밀번호 |
-| from_email | 해당 계정에 발송 권한이 있는 주소. 가능하면 `feedback@howon.kim` |
+| from_email | 해당 계정에 발송 권한이 있는 주소. 가능하면 `feedback@decultureware.com` |
 | state_dir | `/volume2/web_privates/state` 유지 |
 | rate_secret | 비밀번호 관리자로 만든 무작위 영문·숫자 64자 |
 
 MailPlus Server에서 인증된 SMTP-STARTTLS(587)를 활성화하세요.
 `mail.howon.kim`에 맞는 유효한 인증서가 필요합니다.
-피드백 수신자는 항상 `feedback@howon.kim`입니다.
+피드백 수신자는 항상 `feedback@decultureware.com`입니다.
 
 PHP 실행 계정에 비공개 폴더 접근, `feedback.php` 읽기, `state` 쓰기 권한을 줍니다.
 PHP 프로필의 `open_basedir`에 제한이 있다면 기존 경로를 유지하면서
@@ -81,7 +81,7 @@ NAS의 비공개 설정과 전송 기록은 사이트 폴더 밖에 있어 사�
   사이트가 하위 경로에 있다면 그 경로 뒤에 붙입니다.
 - `/config/feedback.example.php`와 `/tests/feedback.php`는 **403 또는 404**가 나와야 합니다.
   문서 내용이 보이면 `.htaccess` 복사 여부와 Apache 백엔드 설정을 확인합니다.
-- 피드백 한 건을 전송하고 `feedback@howon.kim` 받은편지함/스팸함을 확인합니다.
+- 피드백 한 건을 전송하고 `feedback@decultureware.com` 받은편지함/스팸함을 확인합니다.
 - 503 오류: 비공개 설정 위치, 폴더 권한, PHP 설정을 확인합니다.
 - 502 오류: SMTP 로그인, 서버 연결, 인증서를 확인합니다.
 
