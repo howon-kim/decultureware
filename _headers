@@ -11,6 +11,14 @@
 /assets/fonts/SUIT-Variable-v2.0.5.woff2
   Cache-Control: public, max-age=31536000, immutable
 
+# HTML refers to these with content-version queries to invalidate older caches.
+/showroom.css
+  Cache-Control: public, max-age=0, must-revalidate
+/subpage.css
+  Cache-Control: public, max-age=0, must-revalidate
+/showroom.js
+  Cache-Control: public, max-age=0, must-revalidate
+
 # Search engines should index the custom domain, not deployment copies.
 https://decultureware.pages.dev/*
   X-Robots-Tag: noindex

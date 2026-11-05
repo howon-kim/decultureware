@@ -3,7 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from urllib.parse import urlsplit, unquote
+from urllib.parse import urlsplit, unquote, parse_qs
 import hashlib
 import shutil
 import subprocess
@@ -109,6 +109,10 @@ with TemporaryDirectory(prefix='dcw-build-') as temp:
             url = urlsplit(link)
             if url.scheme == 'mailto':
                 assert url.path == 'feedback@decultureware.com', f'Old support address in {page}'
+            if not url.scheme and not url.netloc and Path(url.path).name in ('showroom.css', 'subpage.css', 'showroom.js'):
+                target = ((output if url.path.startswith('/') else page.parent) / url.path.lstrip('/')).resolve()
+                version = hashlib.sha256(target.read_bytes()).hexdigest()[:12]
+                assert parse_qs(url.query).get('v') == [version], f'Stale asset URL in {page}'
     assert (output / '404.html').exists(), 'Missing URLs must return a real 404'
     headers = (output / '_headers').read_text()
     assert "script-src 'self'" in headers and "frame-ancestors 'none'" in headers

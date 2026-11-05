@@ -2,7 +2,7 @@
 """Generate the static home and app pages from apps.json and Apple image URLs."""
 from html import escape as e
 import re
-from site_common import ROOT as R, load_apps, load_screenshots, screenshot_urls
+from site_common import ROOT as R, load_apps, load_screenshots, screenshot_urls, version_public_assets
 
 
 def build():
@@ -47,3 +47,4 @@ if __name__=='__main__':
  import runpy
  runpy.run_path(str(R/'scripts/localize-showroom.py'),run_name='__main__')
  runpy.run_path(str(R/'scripts/build-feedback.py'),run_name='__main__')
+ version_public_assets()

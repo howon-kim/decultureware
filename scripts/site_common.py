@@ -1,7 +1,10 @@
 """Shared build inputs and URL helpers; never required by the web server."""
 import json
 import os
+import hashlib
+import re
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREENSHOTS = ROOT / "app-store-screenshots.js"
@@ -39,3 +42,24 @@ def screenshot_urls(app, data, device="iphone"):
 
 def relative(target, source):
     return Path(os.path.relpath(target, source.parent)).as_posix()
+
+
+def version_public_assets():
+    """Changing CSS/JS changes its URL, including for browsers with an old cache."""
+    versions = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()[:12]
+                for name in ('showroom.css', 'subpage.css', 'showroom.js')}
+
+    def replace(match):
+        attr, value = match.groups()
+        url = urlsplit(value)
+        name = Path(url.path).name
+        if url.scheme or url.netloc or name not in versions:
+            return match.group()
+        value = urlunsplit(('', '', url.path, 'v=' + versions[name], url.fragment))
+        return f'{attr}="{value}"'
+
+    pages = [ROOT / 'index.html', ROOT / '404.html']
+    for directory in ['apps', 'ko', *(app['slug'] for app in load_apps())]:
+        pages.extend((ROOT / directory).rglob('*.html'))
+    for page in pages:
+        page.write_text(re.sub(r'(href|src)="([^"]+)"', replace, page.read_text()))

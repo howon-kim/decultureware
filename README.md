@@ -63,7 +63,9 @@ Keep the license with the font. The versioned font is preloaded, uses `font-disp
 swap`, and has a one-year browser cache; change the filename and references when
 updating it. Both common stylesheets are linked directly, without chained imports.
 App icons request 160px Apple thumbnails; Mac screenshots reserve their 8:5 space
-before loading. Cloudflare's revalidation policy stays in place for HTML/CSS/JS.
+before loading. CSS/JS links include a content hash so returning visitors receive
+the matching styles and behavior after each update. These files explicitly use
+browser revalidation; HTML keeps Cloudflare's default revalidation policy.
 
 Push updates to `main` to trigger a new deployment. The build uses saved App Store
 image URLs; run the screenshot refresh locally and commit its output when needed.
