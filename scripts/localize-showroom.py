@@ -23,6 +23,7 @@ def translate(text):
  if match:return f'{match[1]} 스크린샷 {match[2]}'
  if text.startswith('Explore '):return text[8:]+' 자세히 보기'
  if text.startswith('Get ') and text.endswith(' on the App Store'):return text[4:-17]+' App Store에서 다운로드'
+ if text.startswith('Download ') and text.endswith(' from GitHub'):return text[9:-12]+' GitHub에서 다운로드'
  if text.endswith(' app preview'):return text[:-12]+' 앱 미리보기'
  if text.endswith(' preview'):return text[:-8]+' 미리보기'
  if text.endswith(' support'):return text[:-8]+' 지원'

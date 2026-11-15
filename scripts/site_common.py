@@ -32,6 +32,9 @@ def save_screenshots(data):
 
 def screenshot_urls(app, data, device="iphone"):
     urls = data.get(app["slug"], {}).get(device, [])
+    if not urls and device == "iphone" and app.get("screenshots"):
+        # Apps outside the App Store ship their own images with known sizes.
+        urls = [shot["src"] for shot in app["screenshots"]]
     if not urls and device == "iphone" and app.get("preview"):
         urls = [app["preview"]]
     if not urls and device == "iphone" and app["slug"] == "bananasnap":

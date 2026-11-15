@@ -34,6 +34,28 @@
     "url": "https://apps.apple.com/us/app/id6812689057"
   },
   {
+    "slug": "bananashell",
+    "name": "bananaShell",
+    "platform": "mac",
+    "category": "Terminal",
+    "tagline": "Your terminals keep running.",
+    "description": "A Mac terminal whose sessions survive quitting the app. Grid layouts, a drop-down notch terminal, and alerts when Claude Code finishes.",
+    "features": [
+      "Sessions that outlast the app",
+      "Up to 16 terminals on one page",
+      "A terminal from the notch, anywhere"
+    ],
+    "color": "#e3e4c6",
+    "icon": "bananashell/images/icon-160.png",
+    "screenshots": [
+      {"src": "bananashell/images/screenshot-1600.png", "width": 1600, "height": 956},
+      {"src": "bananashell/images/notch-1400.png", "width": 1400, "height": 868}
+    ],
+    "download": "https://github.com/howon-kim/bananaShell/releases/latest",
+    "source": "https://github.com/howon-kim/bananaShell",
+    "install": "brew install --cask howon-kim/tap/bananashell"
+  },
+  {
     "slug": "aftermove",
     "name": "AFTERMOVE",
     "platform": "mobile",

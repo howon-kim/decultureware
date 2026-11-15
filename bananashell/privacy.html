@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - bananaShell</title>
+    <link rel="preload" href="../assets/fonts/SUIT-Variable-v2.0.5.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../showroom.css?v=9ffdcd398256"><link rel="stylesheet" href="../subpage.css?v=63a70a7eaaaa">
+</head>
+<body>
+    <!-- Navigation -->
+    <a class="skip" href="#main">Skip to content</a><header class="header wrap"><a class="brand" href="../index.html" aria-label="Design Culture Software home"><span class="brand-mark">dcw.</span><span class="brand-name">Design Culture<br>Software</span></a><nav aria-label="Main navigation"><a href="../index.html#apps">The apps</a><a href="../index.html#studio">The studio</a><a class="contact-link" href="mailto:feedback@decultureware.com">Say hello <span aria-hidden="true">↗</span></a><a href="../ko/apps/bananashell.html" lang="ko">한국어 앱 소개</a></nav></header>
+
+    <div class="wrap support-context"><a class="back" href="../apps/bananashell.html">← bananaShell</a><nav aria-label="bananaShell support"><a href="contact.html">Contact & support</a><a href="privacy.html" aria-current="page">Privacy policy</a><a href="terms.html">Terms & conditions</a></nav></div>
+    <header class="page-header yellow">
+        <div class="container">
+            <span class="sp-badge yellow">bananaShell</span>
+            <h1>Privacy Policy</h1>
+        </div>
+    </header>
+
+    <main id="main" class="content-container yellow-accent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="policy-content">
+                        <p>This policy describes how bananaShell for macOS, developed by Howon Kim, handles your information.</p>
+                        <h2>Terminal Sessions and Local Storage</h2>
+                        <p>bananaShell runs your shells on your Mac through its own tmux server. Terminal output, scrollback, window layouts, automation recordings and logs, prompt settings and preferences are stored on your Mac. Automation logs are kept in <code>~/Library/Logs/bananaShell/</code>. bananaShell does not have an account system and does not send your terminal contents to us.</p>
+                        <h2>Keys</h2>
+                        <p>SSH keys you generate are saved as files on your Mac. API key values you add are stored in your local macOS Keychain and are excluded from search. bananaShell does not upload these keys.</p>
+                        <h2>Claude Code Alerts</h2>
+                        <p>When you use Claude Code in a bananaShell terminal, bananaShell can show a completion alert with a short preview of Claude's final reply. The preview is written to an owner-only file on your Mac and deleted as soon as the app reads it. Your conversations with Claude are handled by Anthropic under its own privacy policy; bananaShell does not send them anywhere.</p>
+                        <h2>Network Access</h2>
+                        <p>Release builds check GitHub for updates and download them from <a href="https://github.com/howon-kim/bananaShell/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>. When you choose to install optional prompt tools, such as Homebrew, Oh My Posh, Starship or shell plugins, bananaShell downloads them from their publishers. GitHub and these providers receive standard request information, such as your IP address, under their own privacy policies. The commands you run in the terminal connect wherever you direct them.</p>
+                        <h2>Notifications and Permissions</h2>
+                        <p>bananaShell asks for notification permission to show alerts and badge counts. macOS may ask for other permissions when commands you run access protected folders or apps. You can change these in System Settings.</p>
+                        <h2>Retention and Deletion</h2>
+                        <p>Closing a terminal ends its session. You can delete automations and keys in the app, and remove app data by deleting bananaShell and its folders in <code>~/Library/Application Support/bananaShell/</code> and <code>~/Library/Logs/bananaShell/</code>. API keys can also be removed with Keychain Access.</p>
+                        <h2>Open Source</h2>
+                        <p>bananaShell's <a href="https://github.com/howon-kim/bananaShell" target="_blank" rel="noopener noreferrer">source code</a> is public, so you can review how it handles data.</p>
+                        <h2>Contact</h2>
+                        <p>If you have questions about this policy, visit <a href="contact.html">bananaShell Support</a> or email <a href="mailto:feedback@decultureware.com">feedback@decultureware.com</a>.</p>
+                        <p class="effective-date"><strong>Last Updated:</strong> November 15, 2026</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="wrap footer"><a class="brand-mark" href="../index.html">dcw.</a><p>Small tools. Everyday possibilities.</p><span>© 2026 Design Culture Software</span><a href="mailto:feedback@decultureware.com">Get in touch ↗</a></footer>
+</body>
+</html>
