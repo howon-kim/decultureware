@@ -2,7 +2,7 @@
 """Generate the static home and app pages from apps.json and Apple image URLs."""
 from html import escape as e
 import re
-from site_common import ROOT as R, load_apps, load_screenshots, screenshot_urls, version_public_assets, theme_head
+from site_common import PUBLIC_DIR, ROOT, load_apps, load_screenshots, screenshot_urls, version_public_assets, theme_head
 
 
 PURPOSES = {
@@ -76,8 +76,8 @@ def build():
   <section class="banana-series wrap"><div><p class="eyebrow">THE BANANA SERIES</p><h2>Good company<br>for your Mac.</h2></div><div><p>One keeps your day in view.<br>One keeps the things worth saving.<br>One keeps your work running.</p><div class="series-links"><a href="apps/bananacal.html">BananaCal ↗</a><a href="apps/bananasnap.html">BananaSnap ↗</a><a href="apps/bananashell.html">bananaShell ↗</a></div></div><span class="series-decoration" aria-hidden="true">( b. )</span></section>
   <section class="studio wrap" id="studio"><p class="eyebrow">A NOTE FROM THE STUDIO</p><div><h2>Software that fits<br>into your day.</h2><p>Design Culture Software is an independent collection of apps for everyday life. A clearer calendar. An easier commute. A new way to see where you’ve been.</p><p>Small, focused tools, made with care.</p><a class="text-link" href="mailto:feedback@decultureware.com">Have a thought? Say hello ↗</a></div></section>
 </main>'''
- (R/'index.html').write_text(shell('Thoughtful apps for everyday life','Discover independent apps for Mac, iPhone, and iPad from Design Culture Software.',body,extra_head=lens_assets))
- (R/'apps').mkdir(exist_ok=True)
+ (PUBLIC_DIR/'apps').mkdir(parents=True,exist_ok=True)
+ (PUBLIC_DIR/'index.html').write_text(shell('Thoughtful apps for everyday life','Discover independent apps for Mac, iPhone, and iPad from Design Culture Software.',body,extra_head=lens_assets))
  for a in apps:
   gallery=''
   devices=['iphone']+(['ipad'] if shots(a,'ipad') else [])
@@ -91,10 +91,10 @@ def build():
   if a.get('source'):store_button+=f'<p><a class="text-link" href="{e(a["source"])}" target="_blank" rel="noopener noreferrer">Free and open source on GitHub ↗</a></p>'
   if a['slug']=='bananacal':store_button+='<p><a class="text-link" href="../bananacal/contact.html">Share feedback ↗</a></p>'
   body=f'''<main id="main" class="detail"><section class="wrap detail-hero"><a class="back" href="../index.html#apps">← All apps</a><div class="detail-intro"><div>{icon(a,'../',eager=True)}<p class="eyebrow">{a['category']} / {platform(a)}</p><h1>{a['name']}</h1><h2>{a['tagline']}</h2><p>{a['description']}</p>{store_button}</div><div class="detail-art {a['platform']}" style="--tint:{a['color']}"><img src="{e(asset(shots(a)[0],'../'))}" alt="{a['name']} app preview"{dimensions(a,shots(a)[0])} fetchpriority="high" decoding="async"></div></div></section><section class="wrap features">{features}</section><section class="wrap screenshot-section"><div class="section-heading"><h2>A closer look.</h2><div class="filters" role="group" aria-label="Screenshot device">{toggles}</div></div><p class="gallery-hint">Scroll to explore. Select a screenshot to take a closer look.</p>{gallery}</section><nav class="wrap support-links" aria-label="{a['name']} support"><a href="../{a['slug']}/contact.html">Contact & support ↗</a><a href="../{a['slug']}/privacy.html">Privacy policy ↗</a><a href="../{a['slug']}/terms.html">Terms & conditions ↗</a></nav></main><dialog class="lightbox" aria-label="Screenshot viewer"><button class="close" aria-label="Close screenshot">×</button><button class="previous" aria-label="Previous screenshot">←</button><img alt=""><button class="next" aria-label="Next screenshot">→</button><p class="image-count" aria-live="polite"></p></dialog>'''
-  (R/'apps'/f'{a["slug"]}.html').write_text(shell(a['name'],a['description'],body,'../'))
+  (PUBLIC_DIR/'apps'/f'{a["slug"]}.html').write_text(shell(a['name'],a['description'],body,'../'))
 if __name__=='__main__':
  build()
  import runpy
- runpy.run_path(str(R/'scripts/build-feedback.py'),run_name='__main__')
- runpy.run_path(str(R/'scripts/localize-showroom.py'),run_name='__main__')
+ runpy.run_path(str(ROOT/'scripts/build-feedback.py'),run_name='__main__')
+ runpy.run_path(str(ROOT/'scripts/localize-showroom.py'),run_name='__main__')
  version_public_assets()

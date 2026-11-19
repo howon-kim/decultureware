@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate BananaCal's English/Korean email contact pages."""
 from html import escape as e
-from site_common import ROOT as R, theme_head
+from site_common import PUBLIC_DIR, theme_head
 TEXT={
 'en':dict(title='Share your feedback',intro='Found a bug? Have an idea? Tell us how BananaCal can work better for you.',back='← BananaCal',apps='The apps',studio='The studio',hello='Say hello ↗',support='Feedback',privacy='Privacy policy',terms='Terms & conditions',legend='A note to the BananaCal team',kind='What would you like to share?',kinds=['Report a bug','Suggest a feature','Ask a question','Something else'],platform='Where do you use BananaCal?',platforms=['iPhone / iPad','Mac','Other'],version='App version (optional)',version_hint='For example, 2.0.1',email='Your email',email_hint='So we can reply to your feedback.',message='Your feedback',placeholder='What happened, or what would you like to see? For a bug, include the steps that led to it.',note='Please leave out passwords and private calendar details.',send='Send feedback',notice='Your email and message will be sent to our support inbox to handle your request. Calendar data is not attached automatically.',or_email='Prefer email?',nojs='Enable JavaScript to submit the form, or email us directly below.',footer='Small tools. Everyday possibilities.'),
 'ko':dict(title='여러분의 의견을 들려주세요',intro='불편했던 점이나 새로 바라는 기능이 있나요? BananaCal을 더 편리하게 만드는 데 여러분의 의견이 도움이 됩니다.',back='← BananaCal',apps='앱 둘러보기',studio='스튜디오',hello='문의하기 ↗',support='피드백',privacy='개인정보 처리방침',terms='이용약관',legend='BananaCal 팀에게 보내는 의견',kind='어떤 의견인가요?',kinds=['오류 제보','기능 제안','사용 문의','기타'],platform='어디에서 사용하시나요?',platforms=['iPhone / iPad','Mac','기타'],version='앱 버전 (선택)',version_hint='예: 2.0.1',email='답변받을 이메일',email_hint='남겨주신 의견에 답변할 때만 사용합니다.',message='피드백 내용',placeholder='어떤 일이 있었나요? 오류라면 문제가 발생한 과정을 함께 적어 주세요.',note='비밀번호나 개인 일정의 민감한 내용은 적지 말아 주세요.',send='피드백 보내기',notice='이메일과 작성한 내용은 문의 응대를 위해 지원 메일함으로 전달됩니다. 캘린더 데이터는 자동으로 첨부되지 않습니다.',or_email='이메일로 보내고 싶다면',nojs='폼을 전송하려면 JavaScript를 켜거나 아래 이메일로 직접 보내 주세요.',footer='작은 도구. 매일의 가능성.')
@@ -31,5 +31,5 @@ def build():
 <a class="contact-email-link" href="mailto:feedback@decultureware.com?subject=BananaCal%20feedback">feedback@decultureware.com</a>
 <p>{t['note']} <a href="{privacy}#website-feedback">{t['privacy']} ↗</a></p>
 </div></div></main><footer class="wrap footer"><a class="brand-mark" href="{home}">dcw.</a><p>{t['footer']}</p><span>© 2026 Design Culture Software</span></footer></body></html>'''
-  dest=R/('ko/bananacal/contact.html' if ko else 'bananacal/contact.html');dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html)
+  dest=PUBLIC_DIR/('ko/bananacal/contact.html' if ko else 'bananacal/contact.html');dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html)
 if __name__=='__main__':build()

@@ -7,7 +7,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qsl, quote, urlencode, urlsplit
 
-from site_common import ROOT, load_apps, read_json, relative
+from site_common import CONTENT_DIR, PUBLIC_DIR, load_apps, read_json, relative
 
 APPS = [app['slug'] for app in load_apps()]
 SHOWROOM = [Path('index.html'), *(Path('apps', slug + '.html') for slug in APPS)]
@@ -127,16 +127,16 @@ class LocalizedHTML(HTMLParser):
 
 
 def build():
-    korean = read_json(ROOT / 'locales/ko.json')
-    japanese = read_json(ROOT / 'locales/ja.json')
-    contact = japanese | read_json(ROOT / 'locales/ja-contact.json')
-    policies = japanese | read_json(ROOT / 'locales/ja-policies.json')
+    korean = read_json(CONTENT_DIR / 'locales/ko.json')
+    japanese = read_json(CONTENT_DIR / 'locales/ja.json')
+    contact = japanese | read_json(CONTENT_DIR / 'locales/ja-contact.json')
+    policies = japanese | read_json(CONTENT_DIR / 'locales/ja-policies.json')
     for page in PAGES:
-        original = strip_languages((ROOT / page).read_text())
+        original = strip_languages((PUBLIC_DIR / page).read_text())
         for lang, pages in EDITIONS.items():
             if page not in pages:
                 continue
-            dest = ROOT / location(page, lang)
+            dest = PUBLIC_DIR / location(page, lang)
             if lang == 'en':
                 document = original
             elif lang == 'ko' and page == FEEDBACK:

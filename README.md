@@ -1,23 +1,30 @@
 # Design Culture Software website
 
-Static responsive app showroom hosted on Cloudflare Pages. Support uses email links; no PHP or SMTP runtime is required for the website.
+A static app showroom in English, Korean and Japanese, hosted on Cloudflare Pages.
 
-- `apps.json`: app copy, platforms, colors, icons, and store links.
-- `app-store-screenshots.js`: Apple-hosted screenshot URLs.
-- `scripts/build-showroom.py` generates the storefront, builds BananaCal's contact pages, localizes the site, and versions asset URLs.
-- `showroom.css` / `showroom.js`: homepage and product-page styling and interactions.
-- Existing app directories retain their privacy, terms, and support pages.
+| Directory | Contents |
+| --- | --- |
+| `public/` | Website HTML, stylesheets, browser scripts, fonts, per-app images and `_headers` |
+| `content/` | The app catalog in `apps.json`, saved App Store image URLs in `app-store-screenshots.js`, and translations in `locales/` |
+| `scripts/` | Python scripts for page generation, localization, screenshot refreshes and the deployment build |
+| `dist/` | Generated Cloudflare Pages deployment output |
 
 ## Edit and preview
 
-After editing app information:
+Edit app descriptions, platforms and store links in `content/apps.json`. Run these commands from the repository root and open [the local preview](http://127.0.0.1:18766/).
 
 ```sh
 python3 scripts/build-showroom.py
-python3 -m http.server 18766 --bind 127.0.0.1
+python3 -m http.server 18766 --bind 127.0.0.1 --directory public
 ```
 
-Open http://127.0.0.1:18766.
+The generator writes the English homepage to `public/index.html`, its translations to `public/ko/` and `public/ja/`, and product pages to each language's `apps/` directory. The public URLs remain `/`, `/ko/` and `/ja/`. Commit changes to the content and regenerated public pages together.
+
+## Languages and support
+
+Korean showroom copy lives in `content/locales/ko.json`. Japanese showroom, support and policy translations live in `content/locales/ja.json`, `content/locales/ja-contact.json` and `content/locales/ja-policies.json`. Rebuild the showroom after editing translations to update the pages and language links.
+
+English support and policy pages live under `public/<app>/`. The localizer uses the English sources to generate the Japanese pages under `public/ja/<app>/`. `scripts/build-feedback.py` generates BananaCal's English and Korean contact pages. Contact links open the visitor's email app with `feedback@decultureware.com` and the product name in the subject.
 
 ## Refresh App Store screenshots
 
@@ -25,82 +32,28 @@ Open http://127.0.0.1:18766.
 python3 scripts/update-app-store-screenshots.py
 ```
 
-This fetches public US App Store image URLs and rebuilds the showroom. It does not download images. Unavailable apps keep their saved URLs; local BananaSnap images remain as fallback assets. Use `--country kr` to select another storefront. This command must run before deploying if screenshots need refreshing; it is not a scheduled or visitor-triggered update.
-
-Deploy the generated HTML alongside the CSS, JavaScript, app support directories, and local fallback images. Building and previewing do not publish the site.
-
-## Languages
-
-The English homepage is at the root. The Korean and Japanese homepages are at `/ko/` and `/ja/`. Each language has its own app detail pages and uses the same screenshots. Japanese contact pages, privacy policies and terms live in `ja/<app>/`. BananaCal also has a Korean contact page.
-
-Edit Korean showroom copy in `locales/ko.json`. Japanese translations are in `locales/ja.json` for the showroom, `locales/ja-contact.json` for support and `locales/ja-policies.json` for policies and terms. Run `python3 scripts/build-showroom.py` to regenerate pages and their language links. Refreshing App Store screenshots also regenerates the localized pages.
+The refresh saves public App Store image URLs in `content/app-store-screenshots.js` and rebuilds the showroom. The default storefront is the US. Pass `--country kr` for South Korea. Unavailable apps keep their saved URLs. BananaSnap's local fallback screenshots live in `public/bananasnap/images/`.
 
 ## Cloudflare Pages deployment
 
-Connect the GitHub repository `howon-kim/decultureware` with these settings:
-
 | Setting | Value |
 | --- | --- |
+| Repository | `howon-kim/decultureware` |
 | Production branch | `main` |
 | Framework preset | None |
 | Build command | `python3 scripts/build-cloudflare.py` |
 | Build output directory | `dist` |
 | Root directory | Repository root |
 
-The build regenerates the English, Korean and Japanese pages and copies only public HTML,
-styles, browser JavaScript, and images to `dist/`. PHP, configuration, tests,
-development scripts, documentation, and Git files are excluded. Publish only `dist/`.
-The root `404.html` keeps missing URLs from falling back to the homepage.
-
-`_headers` supplies the Content Security Policy, frame blocking, HTTPS persistence,
-and browser permission restrictions. Scripts and fonts load from this site; images
-may also load from Apple's image CDN. Inline CSS remains allowed for app colors.
-The HTTPS policy applies only to the current hostname, not mail or other subdomains.
-Deployment URLs are marked `noindex` so the custom domain is the searchable copy.
-
-SUIT Variable 2.0.5 is self-hosted under `assets/fonts/` with its SIL Open Font
-License, from the [official distribution](https://github.com/sun-typeface/SUIT/tree/2.0.5).
-Keep the license with the font. The versioned font is preloaded, uses `font-display:
-swap`, and has a one-year browser cache; change the filename and references when
-updating it. Both common stylesheets are linked directly, without chained imports.
-App icons request 160px Apple thumbnails; Mac screenshots reserve their 8:5 space
-before loading. CSS/JS links include a content hash so returning visitors receive
-the matching styles and behavior after each update. These files request browser
-revalidation, but Cloudflare's zone cache settings can impose a longer lifetime
-(four hours in the production response checked on 2026-11-06). The content hash
-is therefore required for update delivery. HTML keeps the default revalidation
-policy. Changing site assets does not require changing zone-wide cache settings.
-
-Push updates to `main` to trigger a new deployment. The build uses saved App Store
-image URLs; run the screenshot refresh locally and commit its output when needed.
-
-To inspect the exact deployable files locally:
+Pushing to `main` triggers a production deployment. The build regenerates the localized pages and packages the public site in `dist/`. To preview the deployment output locally, run the following commands.
 
 ```sh
 python3 scripts/build-cloudflare.py
 python3 -m http.server 18766 --bind 127.0.0.1 --directory dist
 ```
 
-## Email support
+`public/404.html` handles missing URLs. `public/_headers` sets the Content Security Policy, HTTPS and browser permission policies, cache rules, and search indexing restrictions for Cloudflare deployment URLs. The site serves scripts and fonts locally and loads App Store images from Apple's CDN.
 
-All app contact pages link directly to `feedback@decultureware.com`, with the app
-name in the email subject. Visitors write and send the message in their email
-app; the website has no contact forms. Navigation, privacy policies, and terms
-use the same support address. `scripts/build-feedback.py` generates BananaCal's
-English and Korean contact pages. Other English contact pages are maintained as HTML.
-The site localizer generates the Japanese contact pages from their English sources.
+Stylesheet and script URLs include content hashes so returning visitors receive updated assets. The self-hosted SUIT font has a versioned filename and a one-year cache lifetime. When updating it, update its references and keep its SIL Open Font License in `public/assets/fonts/`. [Official SUIT distribution](https://github.com/sun-typeface/SUIT/tree/2.0.5)
 
-## Maintenance
-
-- `scripts/site_common.py`: shared app catalog, screenshot data and relative paths.
-- `scripts/build-cloudflare.py`: public-file allowlist and Cloudflare output.
-- `tests/site-build.py`: checks localized navigation, email links and the public build.
-
-Website validation (no network or email):
-
-```sh
-python3 tests/site-build.py
-```
-
-Keep generated HTML and existing support URLs in Git. `dist/` is regenerated by
-Cloudflare and is ignored locally.
+`dist/` is regenerated on each build and ignored by Git.

@@ -7,7 +7,9 @@ from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-SCREENSHOTS = ROOT / "app-store-screenshots.js"
+PUBLIC_DIR = ROOT / "public"
+CONTENT_DIR = ROOT / "content"
+SCREENSHOTS = CONTENT_DIR / "app-store-screenshots.js"
 SCREENSHOT_PREFIX = "window.appStoreScreenshots = "
 
 
@@ -16,7 +18,7 @@ def read_json(path):
 
 
 def load_apps():
-    return read_json(ROOT / "apps.json")
+    return read_json(CONTENT_DIR / "apps.json")
 
 
 def load_screenshots():
@@ -56,7 +58,7 @@ def theme_head(base):
 
 def version_public_assets():
     """Changing CSS/JS changes its URL, including for browsers with an old cache."""
-    versions = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()[:12]
+    versions = {name: hashlib.sha256((PUBLIC_DIR / name).read_bytes()).hexdigest()[:12]
                 for name in ('showroom.css', 'subpage.css', 'showroom.js', 'type-lens.css', 'type-lens.js',
                              'theme.css', 'theme.js')}
 
@@ -69,8 +71,8 @@ def version_public_assets():
         value = urlunsplit(('', '', url.path, 'v=' + versions[name], url.fragment))
         return f'{attr}="{value}"'
 
-    pages = [ROOT / 'index.html', ROOT / '404.html']
+    pages = [PUBLIC_DIR / 'index.html', PUBLIC_DIR / '404.html']
     for directory in ['apps', 'ko', 'ja', *(app['slug'] for app in load_apps())]:
-        pages.extend((ROOT / directory).rglob('*.html'))
+        pages.extend((PUBLIC_DIR / directory).rglob('*.html'))
     for page in pages:
         page.write_text(re.sub(r'(href|src)="([^"]+)"', replace, page.read_text()))

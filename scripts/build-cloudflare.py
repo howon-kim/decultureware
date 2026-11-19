@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Build public files only for Cloudflare Pages (Python standard library only)."""
-from pathlib import Path
-import json
 import shutil
 import subprocess
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+from site_common import PUBLIC_DIR, ROOT, load_apps
+
 OUTPUT = ROOT / 'dist'
 PUBLIC_FILES = ('index.html', '404.html', 'showroom.css', 'showroom.js', 'subpage.css',
                 'theme.css', 'theme.js',
@@ -27,11 +26,10 @@ def build():
     OUTPUT.mkdir()
     for name in PUBLIC_FILES:
         (OUTPUT / name).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(ROOT / name, OUTPUT / name)
-    apps = json.loads((ROOT / 'apps.json').read_text())
-    for directory in ['apps', 'ko', 'ja', *(app['slug'] for app in apps)]:
-        for source in (ROOT / directory).rglob('*'):
-            relative = source.relative_to(ROOT)
+        shutil.copy2(PUBLIC_DIR / name, OUTPUT / name)
+    for directory in ['apps', 'ko', 'ja', *(app['slug'] for app in load_apps())]:
+        for source in (PUBLIC_DIR / directory).rglob('*'):
+            relative = source.relative_to(PUBLIC_DIR)
             if (not source.is_file() or source.is_symlink()
                     or source.suffix.lower() not in PUBLIC_EXTENSIONS
                     or any(part.startswith('.') for part in relative.parts)):
