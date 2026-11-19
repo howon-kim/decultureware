@@ -47,10 +47,18 @@ def relative(target, source):
     return Path(os.path.relpath(target, source.parent)).as_posix()
 
 
+def theme_head(base):
+    return ('<meta name="color-scheme" content="light dark">'
+            '<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f6f2">'
+            '<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#191c19">'
+            f'<script src="{base}theme.js"></script><link rel="stylesheet" href="{base}theme.css">')
+
+
 def version_public_assets():
     """Changing CSS/JS changes its URL, including for browsers with an old cache."""
     versions = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()[:12]
-                for name in ('showroom.css', 'subpage.css', 'showroom.js')}
+                for name in ('showroom.css', 'subpage.css', 'showroom.js', 'type-lens.css', 'type-lens.js',
+                             'theme.css', 'theme.js')}
 
     def replace(match):
         attr, value = match.groups()
@@ -62,7 +70,7 @@ def version_public_assets():
         return f'{attr}="{value}"'
 
     pages = [ROOT / 'index.html', ROOT / '404.html']
-    for directory in ['apps', 'ko', *(app['slug'] for app in load_apps())]:
+    for directory in ['apps', 'ko', 'ja', *(app['slug'] for app in load_apps())]:
         pages.extend((ROOT / directory).rglob('*.html'))
     for page in pages:
         page.write_text(re.sub(r'(href|src)="([^"]+)"', replace, page.read_text()))

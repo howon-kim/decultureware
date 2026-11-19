@@ -1,15 +1,55 @@
 'use strict';
-const filterButtons = document.querySelectorAll('[data-filter]');
-filterButtons.forEach(button => button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-    filterButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    let count = 0;
-    document.querySelectorAll('.app-card').forEach(card => {
-        card.hidden = filter !== 'all' && card.dataset.platform !== filter;
-        if (!card.hidden) count++;
+const collection = document.getElementById('apps');
+
+if (collection) {
+    const platforms = collection.querySelectorAll('[data-filter-platform]');
+    const purposes = collection.querySelectorAll('[data-filter-purpose]');
+    const cards = collection.querySelectorAll('.app-card');
+    const empty = collection.querySelector('.empty-apps');
+    const status = collection.querySelector('#filter-status');
+    const countLabels = {
+        en: count => `${count} ${count === 1 ? 'app' : 'apps'} shown`,
+        ko: count => `앱 ${count}개 표시 중`,
+        ja: count => `${count}件のアプリを表示中`
+    };
+    const countLabel = countLabels[document.documentElement.lang] || countLabels.en;
+    let platform = 'all';
+    let purpose = 'all';
+
+    function updateApps() {
+        let count = 0;
+        cards.forEach(card => {
+            const matchesPlatform = platform === 'all' || card.dataset.platform === platform;
+            const matchesPurpose = purpose === 'all' || card.dataset.category === purpose;
+            card.hidden = !matchesPlatform || !matchesPurpose;
+            if (!card.hidden) count++;
+        });
+        platforms.forEach(button => {
+            button.setAttribute('aria-pressed', String(button.dataset.filterPlatform === platform));
+        });
+        purposes.forEach(button => {
+            button.setAttribute('aria-pressed', String(button.dataset.filterPurpose === purpose));
+        });
+        empty.hidden = count !== 0;
+        status.textContent = countLabel(count);
+    }
+
+    platforms.forEach(button => button.addEventListener('click', () => {
+        platform = button.dataset.filterPlatform;
+        updateApps();
+    }));
+    purposes.forEach(button => button.addEventListener('click', () => {
+        purpose = button.dataset.filterPurpose;
+        updateApps();
+    }));
+    collection.querySelector('[data-clear-filters]').addEventListener('click', () => {
+        platform = purpose = 'all';
+        updateApps();
+        platforms[0].focus();
     });
-    document.getElementById('filter-status').textContent = document.documentElement.lang === 'ko' ? `앱 ${count}개 표시 중` : `Showing ${count} apps`;
-}));
+    collection.querySelectorAll('[data-app-filters]').forEach(group => { group.hidden = false; });
+}
+
 const deviceButtons = document.querySelectorAll('[data-device]');
 deviceButtons.forEach(button => button.addEventListener('click', () => {
     deviceButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));

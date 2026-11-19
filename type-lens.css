@@ -1,0 +1,148 @@
+@font-face {
+  font-family: 'DCW Pixel';
+  src: url('./assets/fonts/DCW-Pixel-v1.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+.type-hero {
+  padding-block: clamp(2rem, 4.5vw, 4rem) clamp(3rem, 5vw, 5rem);
+  text-align: center;
+}
+
+.type-hero-content {
+  container-type: inline-size;
+  max-width: 41rem;
+  margin-inline: auto;
+}
+
+.type-hero-content > p {
+  margin: clamp(1.125rem, 2vw, 1.75rem) 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.type-lens {
+  --lens-radius: .72em;
+  position: relative;
+  overflow: hidden;
+  font-family: 'SUIT Variable', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 7.4vw, 7rem);
+  font-size: min(17cqi, 7rem);
+  font-kerning: none;
+  letter-spacing: -.055em;
+  line-height: .94;
+}
+
+.type-lens-words {
+  display: grid;
+  grid-auto-rows: .94em;
+  padding: .06em .08em .09em;
+  white-space: nowrap;
+}
+
+.type-lens h1.type-lens-words {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.type-lens-alternate,
+.type-lens-rim {
+  display: none;
+  position: absolute;
+}
+
+.type-lens[tabindex] {
+  cursor: crosshair;
+  touch-action: pan-y pinch-zoom;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.type-lens:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.type-lens[tabindex] .type-lens-alternate {
+  display: grid;
+  inset: 0;
+  background: #f0ebc3;
+  background: light-dark(#f0ebc3, #374333);
+  clip-path: circle(var(--lens-radius) at var(--lens-x) var(--lens-y));
+  pointer-events: none;
+}
+
+.type-lens-alternate .type-design {
+  color: #174a80;
+  color: light-dark(#174a80, #c9e9ff);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .type-lens-alternate .type-design {
+    --grid-line: rgb(209 234 255 / 40%);
+    color: transparent;
+    background-color: #174a80;
+    background-color: light-dark(#174a80, #78a6d0);
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: .23em .23em;
+    background-position: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+.type-lens-alternate .type-culture {
+  color: #245647;
+  color: light-dark(#245647, #bedac4);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .type-lens-alternate .type-culture {
+    color: transparent;
+    background-color: #245647;
+    background-image: url('./assets/type/culture-dancheong.webp');
+    background-size: 1.08em auto;
+    background-position: center;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-stroke: .006em #24493e;
+    -webkit-text-stroke-color: light-dark(#24493e, #d6dbb7);
+  }
+}
+
+.type-lens-alternate .type-software {
+  color: #345239;
+  color: light-dark(#345239, #d4eab0);
+  font-family: 'DCW Pixel', ui-monospace, monospace;
+}
+
+.type-lens[tabindex] .type-lens-rim {
+  display: block;
+  left: var(--lens-x);
+  top: var(--lens-y);
+  width: calc(2 * var(--lens-radius));
+  height: calc(2 * var(--lens-radius));
+  transform: translate(-50%, -50%);
+  border: 1px solid #6a7757;
+  border-color: light-dark(#6a7757, #a1b28a);
+  border-radius: 50%;
+  /* Grab the disc to move freely; vertical swipes elsewhere scroll the page. */
+  touch-action: pinch-zoom;
+}
+
+@media (forced-colors: active) {
+  .type-lens-alternate .type-design,
+  .type-lens-alternate .type-culture {
+    background: none;
+    color: CanvasText;
+    -webkit-text-stroke: 0;
+  }
+}

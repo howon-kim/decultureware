@@ -4,7 +4,7 @@ Static responsive app showroom hosted on Cloudflare Pages. Support uses email li
 
 - `apps.json`: app copy, platforms, colors, icons, and store links.
 - `app-store-screenshots.js`: Apple-hosted screenshot URLs.
-- `scripts/build-showroom.py`: generates `index.html` and `apps/*.html`.
+- `scripts/build-showroom.py` generates the storefront, builds BananaCal's contact pages, localizes the site, and versions asset URLs.
 - `showroom.css` / `showroom.js`: homepage and product-page styling and interactions.
 - Existing app directories retain their privacy, terms, and support pages.
 
@@ -31,7 +31,9 @@ Deploy the generated HTML alongside the CSS, JavaScript, app support directories
 
 ## Languages
 
-English pages live at the root and in `apps/`; Korean pages live in `ko/` and `ko/apps/`. The page generator produces both versions, including reciprocal language links. Edit Korean copy in `locales/ko.json`, then run `python3 scripts/build-showroom.py`. Screenshot refreshes also rebuild both languages. Screenshots are shared; policy and support links retain their existing destinations.
+The English homepage is at the root. The Korean and Japanese homepages are at `/ko/` and `/ja/`. Each language has its own app detail pages and uses the same screenshots. Japanese contact pages, privacy policies and terms live in `ja/<app>/`. BananaCal also has a Korean contact page.
+
+Edit Korean showroom copy in `locales/ko.json`. Japanese translations are in `locales/ja.json` for the showroom, `locales/ja-contact.json` for support and `locales/ja-policies.json` for policies and terms. Run `python3 scripts/build-showroom.py` to regenerate pages and their language links. Refreshing App Store screenshots also regenerates the localized pages.
 
 ## Cloudflare Pages deployment
 
@@ -45,7 +47,7 @@ Connect the GitHub repository `howon-kim/decultureware` with these settings:
 | Build output directory | `dist` |
 | Root directory | Repository root |
 
-The build regenerates the English/Korean pages and copies only public HTML,
+The build regenerates the English, Korean and Japanese pages and copies only public HTML,
 styles, browser JavaScript, and images to `dist/`. PHP, configuration, tests,
 development scripts, documentation, and Git files are excluded. Do not publish
 the repository root: Cloudflare does not apply Apache `.htaccess` rules.
@@ -86,7 +88,8 @@ All app contact pages link directly to `feedback@decultureware.com`, with the ap
 name in the email subject. Visitors write and send the message in their email
 app; the website has no contact forms. Navigation, privacy policies, and terms
 use the same support address. `scripts/build-feedback.py` generates BananaCal's
-English/Korean contact pages; other app contact pages are maintained as HTML.
+English and Korean contact pages. Other English contact pages are maintained as HTML.
+The site localizer generates the Japanese contact pages from their English sources.
 
 The earlier PHP feedback implementation and [Synology setup](INSTALL-SYNOLOGY.md)
 remain in the repository for reference but are not deployed to Cloudflare.

@@ -117,3 +117,6 @@ __pycache__/
 
 # Cloudflare Pages public build output
 /dist/
+
+# Original artwork is kept separately from the optimized site asset
+/generated_images/

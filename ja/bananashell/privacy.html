@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light dark"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f6f2"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#191c19"><script src="../../theme.js?v=dbdf8f93c822"></script><link rel="stylesheet" href="../../theme.css?v=28c4c306b14e">
+    <title>プライバシーポリシー - bananaShell</title>
+    <link rel="preload" href="../../assets/fonts/SUIT-Variable-v2.0.5.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../showroom.css?v=50a3bc9a6ece"><link rel="stylesheet" href="../../subpage.css?v=a7a0799e8c4c">
+<link rel="alternate" hreflang="en" href="../../bananashell/privacy.html"><link rel="alternate" hreflang="ja" href="privacy.html"><link rel="alternate" hreflang="x-default" href="../../bananashell/privacy.html"></head>
+<body>
+    <!-- Navigation -->
+    <a class="skip" href="#main">本文へスキップ</a><header class="header wrap"><a class="brand" href="../index.html" aria-label="Design Culture Software ホーム"><span class="brand-mark">dcw.</span><span class="brand-name">Design Culture<br>Software</span></a><nav aria-label="メインナビゲーション"><a href="../index.html#apps">アプリ</a><a href="../index.html#studio">スタジオ</a><a class="contact-link" href="mailto:feedback@decultureware.com">お問い合わせ <span aria-hidden="true">↗</span></a><span class="language-switch" role="group" aria-label="言語を選択"><a href="../../bananashell/privacy.html" lang="en" hreflang="en">EN</a><span aria-hidden="true">/</span><a href="privacy.html" lang="ja" hreflang="ja" aria-current="page">日本語</a></span></nav></header>
+
+    <div class="wrap support-context"><a class="back" href="../apps/bananashell.html">← bananaShell</a><nav aria-label="bananaShellのサポート"><a href="contact.html">お問い合わせ・サポート</a><a href="privacy.html" aria-current="page">プライバシーポリシー</a><a href="terms.html">利用規約</a></nav></div>
+    <header class="page-header yellow">
+        <div class="container">
+            <span class="sp-badge yellow">bananaShell</span>
+            <h1>プライバシーポリシー</h1>
+        </div>
+    </header>
+
+    <main id="main" class="content-container yellow-accent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="policy-content">
+                        <p>本ポリシーは、Howon Kimが開発したmacOS用アプリbananaShellにおける情報の取り扱いを説明するものです。</p>
+                        <h2>ターミナルセッションとローカル保存</h2>
+                        <p>bananaShellは、Mac上で独自のtmuxサーバーを介してシェルを実行します。ターミナルの出力とスクロールバック履歴、ウインドウの配置、自動化の記録とログ、プロンプト設定やその他の設定はMacに保存されます。自動化ログの保存先は <code>~/Library/Logs/bananaShell/</code>です。bananaShellにはアカウント機能がなく、ターミナルの内容が開発者に送信されることもありません。</p>
+                        <h2>鍵の取り扱い</h2>
+                        <p>生成したSSH鍵は、Mac上にファイルとして保存されます。追加したAPIキーの値はmacOSのローカルキーチェーンに保存され、検索の対象から除外されます。bananaShellがこれらの鍵をアップロードすることはありません。</p>
+                        <h2>Claude Codeの通知</h2>
+                        <p>bananaShellのターミナルでClaude Codeを使うと、Claudeの最後の返答の一部を含む完了通知を表示できます。このプレビューはMac上で所有者だけがアクセスできるファイルに書き込まれ、アプリが読み取ると直ちに削除されます。Claudeとの会話はAnthropicが同社のプライバシーポリシーに基づいて取り扱います。bananaShellが会話の内容を外部に送信することはありません。</p>
+                        <h2>ネットワークへのアクセス</h2>
+                        <p>リリース版ではGitHubで更新の有無を確認し、 <a href="https://github.com/howon-kim/bananaShell/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>から更新をダウンロードします。Homebrew、Oh My Posh、Starship、シェルプラグインなどのオプションツールをインストールする場合、bananaShellは各提供元からダウンロードします。その際、IPアドレスなどの標準的なリクエスト情報は、GitHubおよび各提供元がそれぞれのプライバシーポリシーに基づいて受け取ります。ターミナルで実行したコマンドは、利用者が指定した接続先にアクセスします。</p>
+                        <h2>通知とアクセス権限</h2>
+                        <p>bananaShellは、通知やバッジ件数を表示するために通知の許可を求めます。実行したコマンドが保護されたフォルダやアプリにアクセスする際には、macOSが追加の許可を求めることがあります。権限は「システム設定」で変更できます。</p>
+                        <h2>保管と削除</h2>
+                        <p>ターミナルを閉じると、そのセッションは終了します。自動化と鍵はアプリ内で削除できます。アプリデータを削除するには、bananaShell本体に加え、次のフォルダを削除してください： <code>~/Library/Application Support/bananaShell/</code> および <code>~/Library/Logs/bananaShell/</code>。APIキーは「キーチェーンアクセス」からも削除できます。</p>
+                        <h2>オープンソース</h2>
+                        <p>bananaShellの <a href="https://github.com/howon-kim/bananaShell" target="_blank" rel="noopener noreferrer">ソースコード</a> は公開されており、データの扱いを確認できます。</p>
+                        <h2>お問い合わせ</h2>
+                        <p>本ポリシーについては、 <a href="contact.html">bananaShellサポート</a> をご覧いただくか、次のメールアドレスにお問い合わせください： <a href="mailto:feedback@decultureware.com">feedback@decultureware.com</a>。</p>
+                        <p class="effective-date"><strong>最終更新日</strong> 2026年11月15日</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="wrap footer"><a class="brand-mark" href="../index.html">dcw.</a><p>小さな道具で、毎日に広がりを。</p><span>© 2026 Design Culture Software</span><a href="mailto:feedback@decultureware.com">お問い合わせ ↗</a><a href="../../ko/apps/bananashell.html" lang="ko">한국어 앱 소개</a></footer>
+</body>
+</html>

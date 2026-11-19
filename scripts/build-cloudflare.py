@@ -9,6 +9,9 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'dist'
 PUBLIC_FILES = ('index.html', '404.html', 'showroom.css', 'showroom.js', 'subpage.css',
+                'theme.css', 'theme.js',
+                'type-lens.css', 'type-lens.js', 'assets/fonts/DCW-Pixel-v1.woff2',
+                'assets/type/culture-dancheong.webp',
                 '_headers', 'assets/fonts/SUIT-Variable-v2.0.5.woff2',
                 'assets/fonts/SUIT-LICENSE.txt')
 PUBLIC_EXTENSIONS = {'.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.avif',
@@ -26,7 +29,7 @@ def build():
         (OUTPUT / name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / name, OUTPUT / name)
     apps = json.loads((ROOT / 'apps.json').read_text())
-    for directory in ['apps', 'ko', *(app['slug'] for app in apps)]:
+    for directory in ['apps', 'ko', 'ja', *(app['slug'] for app in apps)]:
         for source in (ROOT / directory).rglob('*'):
             relative = source.relative_to(ROOT)
             if (not source.is_file() or source.is_symlink()

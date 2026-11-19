@@ -1,75 +1,158 @@
 #!/usr/bin/env python3
-"""Build Korean showroom pages and reciprocal language links from generated English HTML."""
-import os, re
-from pathlib import Path
+"""Build translated pages and link each page to its available language editions."""
+import os
+import re
 from html import escape
 from html.parser import HTMLParser
-from urllib.parse import urlsplit, urlunsplit
-from site_common import ROOT as R, read_json, load_apps, relative
-T=read_json(R/'locales/ko.json')
-PAGES=[Path('index.html'),*(Path('apps') / (app['slug']+'.html') for app in load_apps())]
+from pathlib import Path
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit
 
-def translate(text):
- if text in T:return T[text]
- stripped=text.strip()
- if stripped in T:return text.replace(stripped,T[stripped],1)
- if text.endswith(' · Design Culture Software'):return translate(text.removesuffix(' · Design Culture Software'))+' · Design Culture Software'
- if ' / ' in text:
-  a,b=text.split(' / ',1)
-  if a in T:return T[a]+' / '+b
- match=re.fullmatch(r'Enlarge (.+) screenshot (\d+)',text)
- if match:return f'{match[1]} 스크린샷 {match[2]} 확대'
- match=re.fullmatch(r'(.+) screenshot (\d+)',text)
- if match:return f'{match[1]} 스크린샷 {match[2]}'
- if text.startswith('Explore '):return text[8:]+' 자세히 보기'
- if text.startswith('Get ') and text.endswith(' on the App Store'):return text[4:-17]+' App Store에서 다운로드'
- if text.startswith('Download ') and text.endswith(' from GitHub'):return text[9:-12]+' GitHub에서 다운로드'
- if text.endswith(' app preview'):return text[:-12]+' 앱 미리보기'
- if text.endswith(' preview'):return text[:-8]+' 미리보기'
- if text.endswith(' support'):return text[:-8]+' 지원'
- return text
+from site_common import ROOT, load_apps, read_json, relative
 
-def language_links(page,lang):
- source=page if lang=='en' else Path('ko')/page
- en=relative(page,source);ko=relative(Path('ko')/page,source)
- return f'<span class="language-switch" role="group" aria-label="{"Language" if lang=="en" else "언어 선택"}"><a href="{en}" lang="en" hreflang="en" {"aria-current=\"page\"" if lang=="en" else ""}>EN</a><span aria-hidden="true">/</span><a href="{ko}" lang="ko" hreflang="ko" {"aria-current=\"page\"" if lang=="ko" else ""}>한국어</a></span>'
+APPS = [app['slug'] for app in load_apps()]
+SHOWROOM = [Path('index.html'), *(Path('apps', slug + '.html') for slug in APPS)]
+FEEDBACK = Path('bananacal/contact.html')
+SUPPORT = [Path(slug, name + '.html') for slug in APPS for name in ('contact', 'privacy', 'terms')]
+PAGES = SHOWROOM + SUPPORT
+EDITIONS = {'en': set(PAGES), 'ko': set(SHOWROOM + [FEEDBACK]), 'ja': set(PAGES)}
+LANGUAGE_NAMES = {'en': 'EN', 'ko': '한국어', 'ja': '日本語'}
+LANGUAGE_LABELS = {'en': 'Language', 'ko': '언어 선택', 'ja': '言語を選択'}
 
-class KoreanHTML(HTMLParser):
- def __init__(self,page):
-  super().__init__(convert_charrefs=True);self.page=page;self.output=[]
- def handle_decl(self,decl):self.output.append('<!'+decl+'>')
- def handle_starttag(self,tag,attrs):
-  values=[]
-  for key,value in attrs:
-   if value is None:values.append(key);continue
-   if key=='lang' and tag=='html':value='ko'
-   elif key in ('href','src'):
-    u=urlsplit(value)
-    if not u.scheme and not u.netloc and u.path:
-     target=Path(os.path.normpath(self.page.parent/u.path))
-     if target in PAGES or target==Path('bananacal/contact.html'):target=Path('ko')/target
-     value=urlunsplit(('', '', relative(target,Path('ko')/self.page),u.query,u.fragment))
-   elif key in ('alt','aria-label','content'):value=translate(value)
-   values.append(f'{key}="{escape(value,quote=True)}"')
-  self.output.append('<'+tag+(' '+ ' '.join(values) if values else '')+'>')
- def handle_endtag(self,tag):self.output.append('</'+tag+'>')
- def handle_data(self,data):self.output.append(escape(translate(data),quote=False))
- def handle_entityref(self,name):self.output.append('&'+name+';')
- def handle_charref(self,name):self.output.append('&#'+name+';')
- def handle_comment(self,text):self.output.append('<!--'+text+'-->')
+# Match complete generated labels so product names and placeholders keep their meaning.
+LABELS = (
+    'Enlarge {name} screenshot {number}', '{name} screenshot {number}', 'Explore {name}',
+    'Get {name} on the App Store', 'Download {name} from GitHub',
+    '{name} app preview', '{name} preview', '{name} support',
+)
+PATTERNS = {
+    key: re.compile(re.escape(key).replace(r'\{name\}', '(?P<name>.+)')
+                    .replace(r'\{number\}', r'(?P<number>\d+)')) for key in LABELS
+}
+
+
+def translated(text, catalog):
+    if text in catalog:
+        return catalog[text]
+    stripped = text.strip()
+    if stripped and stripped in catalog:
+        return text.replace(stripped, catalog[stripped], 1)
+    title, separator, brand = text.partition(' · ')
+    if separator and brand == 'Design Culture Software':
+        return catalog.get(title, title) + separator + brand
+    category, separator, platform = text.partition(' / ')
+    if separator and category in catalog:
+        return catalog[category] + separator + platform
+    for template, pattern in PATTERNS.items():
+        match = pattern.fullmatch(text)
+        if match:
+            return catalog[template].format(**match.groupdict())
+    return text
+
+
+def location(page, lang):
+    return page if lang == 'en' else Path(lang) / page
+
+
+def strip_languages(document):
+    document = re.sub(r'<span class="language-switch"[^>]*>.*?</span>(?=\s*</nav>)',
+                      '', document, count=1, flags=re.S)
+    return re.sub(r'<link rel="alternate" hreflang="(?:en|ko|ja|x-default)" href="[^"]*">', '', document)
+
+
+def add_languages(document, page, lang):
+    dest = location(page, lang)
+    urls = {code: relative(location(page, code), dest)
+            for code, pages in EDITIONS.items() if page in pages}
+    anchors = []
+    for code, url in urls.items():
+        current = ' aria-current="page"' if code == lang else ''
+        anchors.append(f'<a href="{url}" lang="{code}" hreflang="{code}"{current}>{LANGUAGE_NAMES[code]}</a>')
+    links = '<span aria-hidden="true">/</span>'.join(anchors)
+    switch = f'<span class="language-switch" role="group" aria-label="{LANGUAGE_LABELS[lang]}">{links}</span>'
+    document = document.replace('</nav></header>', switch + '</nav></header>', 1)
+    urls['x-default'] = urls['en']
+    alternates = ''.join(f'<link rel="alternate" hreflang="{code}" href="{url}">' for code, url in urls.items())
+    return document.replace('</head>', alternates + '</head>', 1)
+
+
+class LocalizedHTML(HTMLParser):
+    def __init__(self, page, lang, catalog):
+        super().__init__()
+        self.page = page
+        self.lang = lang
+        self.catalog = catalog
+        self.output = []
+
+    def url(self, value):
+        url = urlsplit(value)
+        if self.lang == 'ja' and url.scheme == 'mailto' and url.query:
+            query = [(key, self.catalog.get(val, val) if key == 'subject' else val)
+                     for key, val in parse_qsl(url.query, keep_blank_values=True)]
+            return url._replace(query=urlencode(query, quote_via=quote)).geturl()
+        if self.lang == 'ja' and url.netloc == 'apps.apple.com' and url.path.startswith('/us/'):
+            return url._replace(path='/jp/' + url.path[4:]).geturl()
+        if url.scheme or url.netloc or not url.path or url.path.startswith('/'):
+            return value
+        target = Path(os.path.normpath(self.page.parent / url.path))
+        if target in EDITIONS[self.lang]:
+            target = location(target, self.lang)
+        return url._replace(path=relative(target, location(self.page, self.lang))).geturl()
+
+    def handle_starttag(self, tag, attrs):
+        values = []
+        for key, value in attrs:
+            if value is None:
+                values.append(key)
+                continue
+            if key == 'lang' and tag == 'html':
+                value = self.lang
+            elif key in ('href', 'src'):
+                value = self.url(value)
+            elif key in ('alt', 'aria-label') or (key == 'content' and dict(attrs).get('name') == 'description'):
+                value = translated(value, self.catalog)
+            values.append(f'{key}="{escape(value, quote=True)}"')
+        self.output.append('<' + ' '.join([tag, *values]) + '>')
+
+    def handle_endtag(self, tag):
+        self.output.append(f'</{tag}>')
+
+    def handle_data(self, data):
+        self.output.append(escape(translated(data, self.catalog), quote=False))
+
+    def handle_decl(self, decl):
+        self.output.append(f'<!{decl}>')
+
+    def handle_comment(self, comment):
+        self.output.append(f'<!--{comment}-->')
+
 
 def build():
- for page in PAGES:
-  original=(R/page).read_text()
-  # Re-running localization must not duplicate language controls or metadata.
-  original=re.sub(r'<span class="language-switch"[^>]*>.*?</span>(?=</nav>)', '', original)
-  original=re.sub(r'<link rel="alternate" hreflang="(?:en|ko|x-default)" href="[^"]*">', '', original)
-  parser=KoreanHTML(page);parser.feed(original)
-  korean=''.join(parser.output)
-  for lang,document,dest in [('en',original,page),('ko',korean,Path('ko')/page)]:
-   document=document.replace('</nav></header>',language_links(page,lang)+'</nav></header>',1)
-   links=''.join(f'<link rel="alternate" hreflang="{code}" href="{relative(target,dest)}">' for code,target in [('en',page),('ko',Path('ko')/page),('x-default',page)])
-   document=document.replace('</head>',links+'</head>',1)
-   (R/dest).parent.mkdir(parents=True,exist_ok=True)
-   (R/dest).write_text(document)
-if __name__=='__main__':build()
+    korean = read_json(ROOT / 'locales/ko.json')
+    japanese = read_json(ROOT / 'locales/ja.json')
+    contact = japanese | read_json(ROOT / 'locales/ja-contact.json')
+    policies = japanese | read_json(ROOT / 'locales/ja-policies.json')
+    for page in PAGES:
+        original = strip_languages((ROOT / page).read_text())
+        for lang, pages in EDITIONS.items():
+            if page not in pages:
+                continue
+            dest = ROOT / location(page, lang)
+            if lang == 'en':
+                document = original
+            elif lang == 'ko' and page == FEEDBACK:
+                # The Korean contact page has its own copy in build-feedback.py.
+                document = strip_languages(dest.read_text())
+            else:
+                catalog = korean if lang == 'ko' else japanese
+                if lang == 'ja' and page in SUPPORT:
+                    catalog = contact if page.name == 'contact.html' else policies
+                parser = LocalizedHTML(page, lang, catalog)
+                parser.feed(original)
+                parser.close()
+                document = ''.join(parser.output)
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_text(add_languages(document, page, lang))
+
+
+if __name__ == '__main__':
+    build()
